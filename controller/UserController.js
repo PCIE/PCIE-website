@@ -20,6 +20,10 @@ UserController.prototype.uploadFile = function(req, res) {
 
                 if (err)
                     console.log("Error Selecting : %s ", err);
+
+                res.send("OK");
+
+
             });
         });
     }
@@ -32,6 +36,8 @@ UserController.prototype.uploadFile = function(req, res) {
 
                 if (err)
                     console.log("Error Selecting : %s ", err);
+
+                res.send("OK");
             });
         });
     }

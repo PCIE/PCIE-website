@@ -134,7 +134,7 @@ app.post('/upload', multipartyMiddleware, UserController.uploadFile);
 app.get('/download', multipartyMiddleware, UserController.downloadFile);
 app.get('/send',function(req,res){
 
-    if(req.query.RH = "1"){
+    if(req.query.RH == "1"){
 
         console.log(req.query.curriculum_vitae);
         console.log(req.query.lettre_de_motivation);

@@ -44,13 +44,24 @@ PCIE.controller('utilisateurCtrl', function($q, $stateParams, $scope, sessionSer
 
         if ($scope.utilisateurOffreForm.CV.$valid && $scope.CV && $scope.utilisateurOffreForm.LM.$valid && $scope.LM) {
             $scope.uploadCV($scope.CV).then(function(){
-                console.log("CV upload");
+                console.log("CV upload successed");
                 $scope.uploadLM($scope.LM).then(function(){
-                    console.log("tous les fichiers uploaded");
-                    $scope.rechercherOffreUtilisateur();
-                    sendMailCandidat();
-                    sendMailRH();
-                })
+                        console.log("LM upload successed");
+                        $scope.rechercherOffreUtilisateur();
+                        sendMailCandidat();
+                            console.log("mail candidat envoyé");
+                        sendMailRH();
+                            console.log("mail RH envoyé");
+                    },function(){
+                            console.log("LM upload failed");
+                        },function(){
+                            console.log("LM upload in progress");
+                        }
+                    )
+            },function(){
+                console.log("CV upload failed");
+            },function(){
+                console.log("CV upload in progress");
             })
         }
 
@@ -142,6 +153,7 @@ PCIE.controller('utilisateurCtrl', function($q, $stateParams, $scope, sessionSer
         }, function (evt) {
             var progressPercentage = parseInt(100.0 * evt.loaded / evt.total);
             console.log('progress: ' + progressPercentage + '% ' + evt.config.data.file.name);
+            deferredCV.notify('Upload CV in progress : '+progressPercentage);
             return deferredCV.promise;
         });
     };
@@ -157,11 +169,13 @@ PCIE.controller('utilisateurCtrl', function($q, $stateParams, $scope, sessionSer
             return deferredLM.promise;
         }, function (resp) {
             console.log('Error status: ' + resp.status);
-            deferredLM.reject('Upload CV failed');
+            deferredLM.reject('Upload LM failed');
             return deferredLM.promise;
         }, function (evt) {
             var progressPercentage = parseInt(100.0 * evt.loaded / evt.total);
             console.log('progress: ' + progressPercentage + '% ' + evt.config.data.file.name);
+            deferredLM.notify('Upload LM in progress : '+progressPercentage);
+            return deferredLM.promise;
         });
     };
 
