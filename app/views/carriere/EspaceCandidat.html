@@ -1,0 +1,67 @@
+<section id="travail" ng-controller="utilisateurCtrl" ng-init="rechercherOffresUtilisateur()">
+    <br>
+    <br>
+    <div class="row">
+        <div class="col-sm-offset-1 col-sm-3">
+            <h4><b>Informations personnelles : </b></h4>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-offset-1 col-sm-1">
+            <h4><b>Vous : </b></h4>
+        </div>
+        <div class="col-sm-4">
+            <h4><p>{{user.nom}} {{user.prenom}}</p></h4>
+        </div>
+    </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-offset-1 col-sm-2">
+            <h4><b>Vous avez postulé à : </b></h4>
+        </div>
+    </div>
+    <div class="container" >
+        <div class="panel panel-default">
+            <table class="table" >
+                <tr>
+                    <th>Titre</th>
+                    <th>Lieu</th>
+                    <th>Experience</th>
+                    <th>Votre Candidature</th>
+                </tr>
+                <tr ng-repeat="var in offresUtilisateur">
+                    <td>{{var.titre}}</td>
+                    <td>{{var.lieu}}</td>
+                    <td>{{var.experience}}</td>
+                    <td><a ui-sref="root.carriere.detailCandidatOffre({idUtilisateur:var.idUtilisateur,idOffre:var.idOffre})">voir</a></td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</section>
+<section id="travail" ng-controller="offreCtrl" ng-init="rechercherOffres()">
+    <br>
+    <br>
+    <h1>Liste des offres</h1>
+    <div class="container" >
+        <div class="panel panel-default">
+            <table class="table" >
+                <tr>
+                    <th>id</th>
+                    <th>Titre</th>
+                    <th>Lieu</th>
+                    <th>Experience</th>
+                    <th></th>
+                </tr>
+                <tr ng-repeat="offre in offres">
+                    <td>{{offre.idOffre}}</td>
+                    <td>{{offre.titre}}</td>
+                    <td>{{offre.lieu}}</td>
+                    <td>{{offre.experience}}</td>
+                    <td><a ui-sref="root.carriere.detailOffre({idOffre:offre.idOffre})">voir</a></td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</section>
+<script type="text/javascript" src="./js/scrollSpy.js"></script>

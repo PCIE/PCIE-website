@@ -1,0 +1,25 @@
+<div ng-controller="navBarCtrl">
+    <nav id="mainNav" class="navbar navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header page-scroll">
+                <button type="button" class="navbar-toggle collapsed button-toggle" data-toggle="collapse"
+                        data-target=".navbar-collapse">
+                    <i class="fa fa-bars" aria-hidden="true"></i> Menu
+                </button>
+                <a class="navbar-brand" href="#">
+                    <img src="./img/pcie-logo.gif" style="width:104px;height:40px;">
+                </a>
+            </div>
+            <div class="collapse navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li ng-repeat="c in headerMenu">
+                        <a href="{{ c.url }}">{{ c.categorie }}</a>
+                    </li>
+                    <li>
+                        <a href="/login">Connexion</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+</div>

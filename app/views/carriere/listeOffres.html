@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div class="container" ng-controller="offreCtrl">
+    <div class="panel panel-default">
+        <table class="table" >
+            <tr>
+                <th>Titre</th>
+                <th>Lieu</th>
+                <th>Experience</th>
+            </tr>
+            <tr ng-repeat="var in offres">
+                <td>{{var.titre}}</td>
+                <td>{{var.lieu}}</td>
+                <td>{{var.experience}}</td>
+            </tr>
+        </table>
+    </div>
+</div>
+</body>
+</html>

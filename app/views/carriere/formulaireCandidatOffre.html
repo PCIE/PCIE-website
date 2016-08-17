@@ -1,0 +1,47 @@
+<section id="EnregistrementCandidatOffre" ng-controller="utilisateurCtrl" ng-init="rechercherOffreUtilisateur()">
+    <div class="container" >
+        <div class="row">
+            <div class="col-lg-6 text-center">
+                <h4>{{offreUtilisateur.nom}} {{offreUtilisateur.prenom}}</h4>
+                <h4>Postuler à l'offre : {{offreUtilisateur.titre}}</h4>
+                <form name="utilisateurOffreForm" class="form-horizontal" ng-submit="enregistrerUtilisateurOffre()">
+                    <div class="form-group">
+                        <label class="col-sm-offset-1 col-sm-3">Curiculum Vitae</label>
+                        <button class="col-sm-5" ngf-select ng-model="CV" name="CV">Selectionner votre CV</button>
+                        <p>{{CV.name}}</p>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-offset-1 col-sm-3">Lettre de motivation</label>
+                        <button class="col-sm-5" ngf-select ng-model="LM" name="LM">Selectionner votre lettre de motivation</button>
+                        <p>{{LM.name}}</p>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-offset-1 col-sm-2">Salaire souhaité</label>
+                        <div class="col-sm-5">
+                            <input type="text" class="form-control" required ng-model="salaire" name = "salaire" ><br>
+                            <div ng-if="utilisateurOffreForm.salaire.$dirty" ng-messages="utilisateurOffreForm.ville.$error">
+                                <div ng-message="required">Veuillez renseigner ce champ!</div>
+                            </div><br>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-offset-1 col-sm-2">Préavis</label>
+                        <div class="col-sm-5">
+                            <select class="form-control" required ng-model="preavis" name = "preavis" ><br>
+                                <option value="2semaines">2 semaines</option>
+                                <option value="1mois">1 mois</option>
+                                <option value="2mois">2 mois</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-offset-1 col-sm-2">
+                            <button type="submit" ng-click="submit()">submit</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="col-lg-3 text-center"></div>
+        </div>
+    </div>
+</section>

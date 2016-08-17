@@ -1,0 +1,43 @@
+<section id="travail" ng-controller="offreCtrl" ng-init="rechercherUtilisateursOffre()">
+<div  >
+    <br>
+    <br>
+    <div class="row">
+        <div class="col-sm-offset-1 col-sm-3">
+            <h4><b>Liste des postulants : </b></h4>
+        </div>
+    </div>
+    <div class="container" >
+        <div class="panel panel-default">
+            <table class="table" >
+                <tr>
+                    <th>Nom</th>
+                    <th>Prénom</th>
+                    <th>voie</th>
+                    <th>Code postal</th>
+                    <th>ville</th>
+                    <th>email</th>
+                    <th>téléphone_fixe</th>
+                    <th>téléphone_portable</th>
+                    <th>curriliculum vitae</th>
+                    <th>lettre de motivation</th>
+                    <th>voir Candidat</th>
+                </tr>
+                <tr ng-repeat="var in utilisateursOffre">
+                    <th>{{var.nom}}</th>
+                    <th>{{var.prenom}}</th>
+                    <th>{{var.voie}}</th>
+                    <th>{{var.code_postal}}</th>
+                    <th>{{var.ville}}</th>
+                    <th>{{var.mail}}</th>
+                    <th>{{var.telephone_fixe}}</th>
+                    <th>{{var.telephone_portable}}</th>
+                    <th>{{var.curriculum_vitae}}</th>
+                    <th>{{var.lettre_de_motivation}}</th>
+                    <th><a ui-sref="root.carriere.detailCandidatOffre({idUtilisateur:var.idUtilisateur,idOffre:var.idOffre})">voir</a></th>
+                </tr>
+            </table>
+        </div>
+    </div>
+</section>
+<script type="text/javascript" src="./js/scrollSpy.js"></script>

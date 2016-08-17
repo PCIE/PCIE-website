@@ -1,0 +1,78 @@
+<section id="travail" ng-controller="offreCtrl" ng-init="rechercherOffre()">
+    <br>
+    <br>
+    <br>
+    <div class="row">
+        <div class="col-sm-offset-2 col-sm-2">
+            <h4><b>Détail du poste : </b></h4>
+        </div>
+        <div class="col-sm-4">
+            <h4>{{offre.titre}}</h4>
+        </div>
+
+        <div class="col-sm-1">
+                <input ng-if="user.idrang!='4'" type="button" ui-sref="root.carriere.mentionsLegales({idOffre:offre.idOffre})" value = 'Postuler' class="btn btn-block btn-info"/><br>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-offset-2 col-sm-2">
+            <h4><b>Localisation : </b></h4>
+        </div>
+        <div class="col-sm-4">
+            <h4>{{offre.lieu}}</h4>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-offset-2 col-sm-2">
+            <h4><b>Nombres de Postes : </b></h4>
+        </div>
+        <div class="col-sm-4">
+            <h4>{{offre.nbDePostes}}</h4>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-offset-2 col-sm-2">
+            <h4><b>Zone de Déplacement : </b></h4>
+        </div>
+        <div class="col-sm-4">
+            <h4>{{offre.zoneDeDeplacement}}</h4>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-offset-2 col-sm-2">
+            <h4><b>Salaire : </b></h4>
+        </div>
+        <div class="col-sm-4">
+            <h4>{{offre.salaire}}</h4>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-offset-2 col-sm-2">
+            <h4><b>Expérience : </b></h4>
+        </div>
+        <div class="col-sm-4">
+            <h4>{{offre.experience}}</h4>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-offset-2 col-sm-2">
+            <h4><b>Suivi :  </b></h4>
+        </div>
+        <div class="col-sm-4">
+            <h4>{{offre.suivi}}</h4>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-offset-2 col-sm-4">
+            <h4><b>Description : </b></h4>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-offset-2 col-sm-8">
+            <p>{{offre.description}}</p>
+        </div>
+    </div>
+
+
+</section>
+<script type="text/javascript" src="./js/scrollSpy.js"></script>

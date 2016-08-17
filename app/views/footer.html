@@ -1,0 +1,38 @@
+<div id="mainFooter" ng-controller="footerCtrl">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-3 col-sm-6">
+                <img id="bottomLogo" src="./img/pcie-logo.gif" style="width:104px;height:40px;">
+                <ul class="list-unstyled">
+                    <li><i class="fa fa-map-marker" aria-hidden="true"></i>&nbsp;6 Avenue Prat Gimont<br>
+                        &nbsp;&nbsp;&nbsp;31130 Balma
+                    </li>
+                    <li><i class="fa fa-phone" aria-hidden="true"></i>&nbsp;+33 (0)5.34.33.24.68</li>
+                    <li><i class="fa fa-envelope-o" aria-hidden="true"></i> <a
+                            href="mailto:contact@pcie.fr">contact@pcie.fr</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="col-md-3 col-sm-6" ng-repeat="c in footerMenu">
+                <h3><a href="{{ c.url }}">{{ c.categorie }}</a></h3>
+                <ul class="list-unstyled">
+                    <li ng-repeat="sc in c.souscategorie"><a ng-click="scrollTo(c.url, sc.id)">{{ sc.nom }}</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="footerBottom">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8">
+                PCIE - Copyright © 2016 / All rights reserved.
+            </div>
+            <div id="bottomRight" class="col-md-4 text-right">
+                <a href="./#/mentionsLegales" class="bottomLine">Mentions légales</a>
+                <a href="https://www.linkedin.com/in/pcie-toulouse-79a31b51" class="bottomLine"><i
+                        class="fa fa-linkedin" aria-hidden="true"></i></a>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,104 @@
+<section id="EnregistrementCandidat" ng-controller="utilisateurCtrl">
+    <div class="container" >
+        <div class="row">
+            <div class="col-lg-6 text-center">
+                <h4>S'enregistrer</h4>
+                <form name="utilisateurForm" class="form-horizontal" ng-submit="enregistrerUtilisateur()">
+                    <div class="form-group">
+                        <label class="col-sm-offset-1 col-sm-2">Nom</label>
+                        <div class="col-sm-5">
+                            <input type="text" class="form-control" required ng-model="utilisateur.nom" name = "nom" ><br>
+                            <div ng-if="utilisateurForm.nom.$dirty" ng-messages="utilisateurForm.nom.$error">
+                                <div ng-message="required">Veuillez renseigner ce champ!</div>
+                            </div><br>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-offset-1 col-sm-2">Prenom</label>
+                        <div class="col-sm-5">
+                            <input type="text" class="form-control" required ng-model="utilisateur.prenom" name = "prenom" ><br>
+                            <div ng-if="utilisateurForm.prenom.$dirty" ng-messages="utilisateurForm.prenom.$error">
+                                <div ng-message="required">Veuillez renseigner ce champ!</div>
+                            </div><br>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-offset-1 col-sm-2">Voie</label>
+                        <div class="col-sm-5">
+                            <input type="text" class="form-control" required ng-model="utilisateur.voie" name = "voie" ><br>
+                            <div ng-if="utilisateurForm.voie.$dirty" ng-messages="utilisateurForm.voie.$error">
+                                <div ng-message="required">Veuillez renseigner ce champ!</div>
+                            </div><br>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-offset-1 col-sm-2">Code Postal</label>
+                        <div class="col-sm-5">
+                            <input type="text" class="form-control" required ng-model="utilisateur.code_postal" ng-pattern="/[\d]{5}/" name = "code_postal"><br>
+                            <div ng-if="utilisateurForm.code_postal.$dirty" ng-messages="utilisateurForm.code_postal.$error">
+                                <div ng-message="pattern">Veuillez entrer un code postal valide!</div>
+                                <div ng-message="required">Veuillez renseigner ce champ!</div>
+                            </div><br>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-offset-1 col-sm-2">Ville</label>
+                        <div class="col-sm-5">
+                            <input type="text" class="form-control" required ng-model="utilisateur.ville" name = "ville" ><br>
+                            <div ng-if="utilisateurForm.ville.$dirty" ng-messages="utilisateurForm.ville.$error">
+                                <div ng-message="required">Veuillez renseigner ce champ!</div>
+                            </div><br>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-offset-1 col-sm-2">Telephone Fixe</label>
+                        <div class="col-sm-5">
+                            <input type="text" class="form-control" required ng-model="utilisateur.telephone_fixe" ng-pattern="/[\d]{10}/" name = "telephone_fixe"><br>
+                            <div ng-if="utilisateurForm.telephone_fixe.$dirty" ng-messages="utilisateurForm.telephone_fixe.$error">
+                                <div ng-message="pattern">Veuillez entrer un téléphone fixe valide!</div>
+                                <div ng-message="required">Veuillez renseigner ce champ!</div>
+                            </div><br>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-offset-1 col-sm-2">Telephone Portable</label>
+                        <div class="col-sm-5">
+                            <input type="text" class="form-control" required ng-model="utilisateur.telephone_portable" ng-pattern="/[\d]{10}/" name = "telephone_portable"><br>
+                            <div ng-if="utilisateurForm.telephone_portable.$dirty" ng-messages="utilisateurForm.telephone_portable.$error">
+                                <div ng-message="pattern">Veuillez entrer un téléphone portable valide!</div>
+                                <div ng-message="required">Veuillez renseigner ce champ!</div>
+                            </div><br>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-offset-1 col-sm-2">Email</label>
+                        <div class="col-sm-5">
+                            <input type="text" class="form-control" required ng-model="utilisateur.mail" ng-pattern="/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/" name = "mail"><br>
+                            <div ng-if="utilisateurForm.mail.$dirty" ng-messages="utilisateurForm.mail.$error">
+                                <div ng-message="pattern">Veuillez entrer un email valide!</div>
+                                <div ng-message="required">Veuillez renseigner ce champ!</div>
+                            </div><br>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-offset-1 col-sm-2">Mot de passe</label>
+                        <div class="col-sm-5">
+                            <input type="password" required ng-model="utilisateur.password" name = "password1"><br>
+                            <input type="password" required ng-pattern="/^{{utilisateur.password}}$/" name = "password2"><br>
+                            <div ng-if="utilisateurForm.mail.$dirty" ng-messages="utilisateurForm.mail.$error">
+                                <div ng-message="required">Veuillez renseigner ce champ!</div>
+                                <div ng-message="pattern">Les mots de passe ne correspondent pas</div>
+                            </div><br>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-offset-2 col-sm-10">
+                            <button type="submit" class="btn btn-default">Sign in</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="col-lg-3 text-center"></div>
+        </div>
+    </div>
+</section>

@@ -1,0 +1,52 @@
+<div ng-controller="navBarCtrl">
+    <nav id="mainNav" class="navbar navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header page-scroll">
+                <button type="button" class="navbar-toggle collapsed button-toggle" data-toggle="collapse"
+                        data-target=".navbar-collapse">
+                    <i class="fa fa-bars" aria-hidden="true"></i> Menu
+                </button>
+                <a id="header-logo" class="navbar-brand" href="#">
+                    <img id="fat" src="./img/pcie-logo.gif" style="width:240px;height:90px;">
+                    <img id="tiny" src="./img/pcie-logo.gif" style="width:104px;height:40px;">
+                </a>
+            </div>
+            <div id="firstNavBar" class="collapse navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li class="categorie" ng-repeat="c in headerMenu">
+                        <a href="#/{{ c.url }}">{{ c.categorie }}</a>
+                    </li>
+                    <li class="categorie"><a data-toggle="modal" data-target="#login-modal">Connectez-vous</a></li>
+                    <li class="divider"></li>
+                    <li class="sous-categorie" style="display:none" ng-repeat="sm in sousMenu">
+                        <a href="{{ sm.anchor }}" ng-click="scrollTo(sm.id)" data-toggle="collapse" data-target=".navbar-collapse" onclick="return false;">{{ sm.nom }}</a>
+                    </li>
+                </ul>
+            </div>
+            <div id="secondNavBar" class="collapse navbar-collapse">
+                <ul class="nav navbar-nav navbar-right subcategorie">
+                    <li ng-repeat="sm in sousMenu">
+                        <a href="{{ sm.anchor }}" onclick="return false;" ng-click="scrollTo(sm.id)">{{ sm.nom }}</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+</div>
+
+<div class="modal fade" id="login-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+    <div class="modal-dialog">
+        <div class="loginmodal-container">
+            <h1>Connectez-vous pour accéder à votre compte.</h1><br>
+            <form>
+                <input type="text" name="user" placeholder="Adresse email">
+                <input type="password" name="pass" placeholder="Mot de passe">
+                <input type="submit" name="login" class="login loginmodal-submit" value="Connexion">
+            </form>
+
+            <div class="login-help">
+                <a href="#">Inscrivez-vous</a> - <a href="#">Mots de passe oublié</a>
+            </div>
+        </div>
+    </div>
+</div>

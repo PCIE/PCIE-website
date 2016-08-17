@@ -1,0 +1,43 @@
+<section id="travail" ng-controller="offreCtrl" ng-init="rechercherOffres()">
+    <br>
+    <br>
+    <div class="row">
+        <div class="col-sm-offset-1 col-sm-5">
+            <h1><b>Espace RH : </b></h1>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-offset-1 col-sm-5">
+            <h1><b>Liste des offres : </b></h1>
+        </div>
+    </div>
+    <div class="container" >
+        <div class="panel panel-default">
+            <table class="table" >
+                <tr>
+                    <th>id</th>
+                    <th>Titre</th>
+                    <th>Lieu</th>
+                    <th>Experience</th>
+                    <th></th>
+                </tr>
+                <tr ng-repeat="offre in offres">
+                    <td>{{offre.idOffre}}</td>
+                    <td>{{offre.titre}}</td>
+                    <td>{{offre.lieu}}</td>
+                    <td>{{offre.experience}}</td>
+                    <td><a ui-sref="root.carriere.detailOffre({idOffre:offre.idOffre})">voir</a></td>
+                    <td><a ui-sref="root.carriere.formulaireOffre({idOffre:offre.idOffre})">modifier</a></td>
+                    <td><a ui-sref="root.carriere.PostulantsOffre({idOffre:offre.idOffre})">postulants</a></td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-offset-1 col-sm-5">
+            <button ui-sref="root.carriere.formulaireOffre" ng-click='init()' class="btn btn-default">ajouter offre</button>
+        </div>
+    </div>
+</section>
+
+<script type="text/javascript" src="./js/scrollSpy.js"></script>

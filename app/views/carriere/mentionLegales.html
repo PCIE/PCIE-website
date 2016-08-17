@@ -1,0 +1,37 @@
+<section id="travail" ng-controller="offreCtrl" ng-init="rechercherOffre()">
+<div>
+    <div class="row">
+        <div class="col-sm-offset-1 col-sm-8">
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <p>PCIE s’engage à respecter l’intimité de ses candidats via sa charte de « Respect de la vie privée ».<br>
+                PCIE maintient une base de données de CV et d’offres pour ses besoins de recrutement accessible par nos équipes.<br>
+                Les informations renseignées lors de votre candidature et/ou du dépôt de votre CV sont susceptibles d’être intégrées dans notre base de <br>
+                données pour d’éventuelles offres.<br>
+                Nous nous engageons à ne pas communiquer ces informations à des organisations externes et à ne pas les utiliser à des fins commerciales.<br>
+                Conformément à la loi, vous disposez d'un droit d'accès, de rectification et de radiation des données vous concernant en vous connectant <br>
+                sur le site de recrutement PCIE ou bien en contactant directement notre service des Ressources Humaines.<br>
+                En fonction de la législation en vigueur, votre candidature ne sera plus accessible au bout de 12 mois d’inactivité.<br></p>
+            <br>
+        </div>
+    </div>
+    <form>
+        <div class="row">
+            <div class="col-sm-offset-1 col-sm-1">
+                <input type="radio" />
+            </div>
+            <div class="col-sm-3">
+                <p>J'ai lu et accepte les mentions légales et privées</p>
+            </div>
+            <div class="col-sm-offset-1 col-sm-4">
+                <button ui-sref="root.carriere.formulaireCandidatOffre({idUtilisateur:user.idUtilisateur,idOffre:offre.idOffre})">suivant</button><br>
+            </div>
+        </div>
+    </form>
+
+</div>
+</section>
+<script type="text/javascript" src="./js/scrollSpy.js"></script>

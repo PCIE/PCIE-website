@@ -1,0 +1,116 @@
+<section id="travail" ng-controller="utilisateurCtrl" ng-init="rechercherOffreUtilisateur()">
+    <br>
+    <br>
+    <br>
+    <div class="row">
+        <div class="col-sm-offset-2 col-sm-8">
+            <h4><b>Le Candidat  {{offreUtilisateur.nom}} : {{offreUtilisateur.prenom}} a postulé pour l'offre : {{offreUtilisateur.titre}}</b></h4>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-offset-2 col-sm-2">
+            <h4><b>Nom : </b></h4>
+        </div>
+        <div class="col-sm-4">
+            <h4>{{offreUtilisateur.nom}}</h4>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-offset-2 col-sm-2">
+            <h4><b>Prénom : </b></h4>
+        </div>
+        <div class="col-sm-4">
+            <h4>{{offreUtilisateur.prenom}}</h4>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-offset-2 col-sm-2">
+            <h4><b>Voie : </b></h4>
+        </div>
+        <div class="col-sm-4">
+            <h4>{{offreUtilisateur.voie}}</h4>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-offset-2 col-sm-2">
+            <h4><b>Code postal : </b></h4>
+        </div>
+        <div class="col-sm-4">
+            <h4>{{offreUtilisateur.code_postal}}</h4>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-offset-2 col-sm-2">
+            <h4><b>Ville : </b></h4>
+        </div>
+        <div class="col-sm-4">
+            <h4>{{offreUtilisateur.ville}}</h4>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-offset-2 col-sm-2">
+            <h4><b>Téléphone fixe : </b></h4>
+        </div>
+        <div class="col-sm-4">
+            <h4>{{offreUtilisateur.telephone_fixe}}</h4>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-offset-2 col-sm-2">
+            <h4><b>Téléphone portable :  </b></h4>
+        </div>
+        <div class="col-sm-4">
+            <h4>{{offreUtilisateur.telephone_portable}}</h4>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-offset-2 col-sm-2">
+            <h4><b>Mail : </b></h4>
+        </div>
+        <div class="col-sm-4">
+            <h4>{{offreUtilisateur.mail}}</h4>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-offset-2 col-sm-2">
+            <h4><b>Salaire souhaité : </b></h4>
+        </div>
+        <div class="col-sm-4">
+            <h4>{{offreUtilisateur.salaire}}</h4>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-offset-2 col-sm-2">
+            <h4><b>Préavis : </b></h4>
+        </div>
+        <div class="col-sm-4">
+            <h4>{{offreUtilisateur.preavis}}</h4>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-offset-2 col-sm-2">
+            <h4><b>Curriculum Vitae :  </b></h4>
+        </div>
+        <div class="col-sm-3">
+            <h4>{{offreUtilisateur.curriculum_vitae}}</h4>
+        </div>
+        <div class="col-sm-2">
+            <a ng-href="" target="_blank" type="button" class="btn btn-primary btn-lg btn-block" ng-click="downloadCV()">Download CV</a>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-offset-2 col-sm-2">
+            <h4><b>Lettre de Motivation : </b></h4>
+        </div>
+        <div class="col-sm-3">
+            <h4>{{offreUtilisateur.lettre_de_motivation}}</h4>
+        </div>
+        <div class="col-sm-2">
+            <a ng-href="" target="_blank" type="button" class="btn btn-primary btn-lg btn-block" ng-click="downloadLM()">Download LM</a>
+        </div>
+    </div>
+
+
+
+</section>
+<script type="text/javascript" src="./js/scrollSpy.js"></script>
