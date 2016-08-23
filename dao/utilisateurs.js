@@ -132,7 +132,7 @@ exports.updateUtilisateur = function (req, res) {
             telephone_fixe: input.telephone_fixe,
             telephone_portable: input.telephone_portable,
             mail: input.mail,
-            password: input.password,
+            hash: input.hash,
             idrang: input.idrang
 
         };
@@ -152,7 +152,7 @@ exports.updateUtilisateur = function (req, res) {
 
 };
 
-exports.enregistrerOffreUtilisateur = function (req, res) {
+ exports.enregistrerOffreUtilisateur = function (req, res) {
 
     var input = JSON.parse(JSON.stringify(req.body));
     var idUtilisateur = req.params.idUtilisateur;
@@ -178,13 +178,14 @@ exports.enregistrerOffreUtilisateur = function (req, res) {
 
 };
 
+
 exports.mettreAJourOffreUtilisateur = function (req, res) {
 
     var input = JSON.parse(JSON.stringify(req.body));
     var idUtilisateur = req.params.idUtilisateur;
     var idOffre = req.params.idOffre;
 
-    console.log("mettre A Jour");
+    console.log("mettre A Jour Offre Utilisateur");
 
     req.getConnection(function (err, connection) {
 
@@ -204,6 +205,31 @@ exports.mettreAJourOffreUtilisateur = function (req, res) {
 
 };
 
+exports.mettreAJourCommentaireCandidat = function (req, res) {
+
+    var input = JSON.parse(JSON.stringify(req.body));
+    var idUtilisateur = req.params.idUtilisateur;
+    var idOffre = req.params.idOffre;
+
+    console.log("mettre A Jour Commentaire Candidat");
+
+    req.getConnection(function (err, connection) {
+
+        var data = {
+            commentaires_candidat : input.commentaires_candidat,
+            commentaires_candidature : input.commentaires_candidature
+        };
+
+        var query = connection.query("UPDATE utilisateur_has_offre SET commentaires_candidat = ?, commentaires_candidature = ? WHERE idUtilisateur = ? AND idOffre = ?", [data.commentaires_candidat,data.commentaires_candidature,idUtilisateur,idOffre], function (err, rows) {
+
+            if (err)
+                console.log("Error Selecting : %s ", err);
+        });
+
+        //console.log(query.sql);
+    });
+
+};
 
 exports.deleteUtilisateur = function (req, res) {
 

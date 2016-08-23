@@ -2,11 +2,13 @@
  * Created by P10-PCIE-MAF on 01/08/2016.
  */
 
-PCIE.controller('utilisateurCtrl', function($q, $stateParams, $scope, sessionService, utilisateurService, Upload, $http, offreService) {
+PCIE.controller('utilisateurCtrl', function($q, $stateParams, $scope, $state, sessionService, utilisateurService, Upload, $http, offreService, FileSaver, Blob) {
 
+    $scope.user = sessionService.getUser();
+    console.log($scope.user);
     $scope.offresUtilisateur;
     $scope.offreUtilisateur;
-    $scope.utilisateur;
+    $scope.utilisateur = {};
     $scope.CV;
     $scope.LM;
     $scope.salaire;
@@ -30,15 +32,32 @@ PCIE.controller('utilisateurCtrl', function($q, $stateParams, $scope, sessionSer
         console.log($scope.CV);
         console.log($scope.LM);
 
+        $scope.utilisateur.nom = $scope.offreUtilisateur.nom;
+        $scope.utilisateur.prenom = $scope.offreUtilisateur.prenom;
+        $scope.utilisateur.voie = $scope.offreUtilisateur.voie;
+        $scope.utilisateur.code_postal = $scope.offreUtilisateur.code_postal;
+        $scope.utilisateur.voie = $scope.offreUtilisateur.voie;
+        $scope.utilisateur.ville = $scope.offreUtilisateur.ville;
+        $scope.utilisateur.telephone_fixe = $scope.offreUtilisateur.telephone_fixe;
+        $scope.utilisateur.telephone_portable = $scope.offreUtilisateur.telephone_portable;
+        $scope.utilisateur.mail = $scope.offreUtilisateur.mail;
+        $scope.utilisateur.hash = $scope.offreUtilisateur.hash;
+        $scope.utilisateur.idrang = '2';
+
+        console.log($scope.utilisateur);
+
+        utilisateurService.mettreAJourUtilisateur($stateParams.idUtilisateur,$scope.utilisateur);
+
         if($scope.offreUtilisateur!=null && $scope.offreUtilisateur!={}){
             $scope.offreUtilisateur.salaire = $scope.salaire;
             $scope.offreUtilisateur.preavis = $scope.preavis;
             console.log("mettreAJour");
             utilisateurService.mettreAJourOffreUtilisateur($stateParams.idUtilisateur,$stateParams.idOffre,$scope.offreUtilisateur);
+
         }else{
-            console.log("Enregistrer");
             $scope.offreUtilisateur.salaire = $scope.salaire;
             $scope.offreUtilisateur.preavis = $scope.preavis;
+            console.log("Enregistrer");
             utilisateurService.enregistrerOffreUtilisateur($stateParams.idUtilisateur,$stateParams.idOffre,$scope.offreUtilisateur);
         }
 
@@ -68,47 +87,59 @@ PCIE.controller('utilisateurCtrl', function($q, $stateParams, $scope, sessionSer
         console.log($scope.CV);
         console.log($scope.LM);
 
-        function sendMailCandidat(){
-             var subjectCandidat = "Réponse suite à votre candidature";
-             var messageCandidat = "Bonjour,\n Nous vous remercions de l'intérêt que vous portez à notre entreprise, nous en sommes même très honorés!\n Conscient que vous avez très envie que nous vous répondions, nous profitons de ce mail automatique pour le faire et vous dire merci!";
-
-            $http({method:'GET', url:'/send/', params: {to: $scope.offreUtilisateur.mail,subject: subjectCandidat, text: messageCandidat, RH : '2'} });
-        }
-
-        function sendMailRH(){
-            var subjectRH = "Un nouveau candidat à postulé à l'offre: "+ $scope.offreUtilisateur.titre;
-
-            var messageRH =
-                "nom                 : " + $scope.offreUtilisateur.nom + "\n" +
-                "prenom              : " + $scope.offreUtilisateur.prenom + "\n" +
-                "voie                : " + $scope.offreUtilisateur.voie + "\n" +
-                "code postal         : " + $scope.offreUtilisateur.code_postal + "\n" +
-                "ville               : " + $scope.offreUtilisateur.ville + "\n" +
-                "téléphone fixe      : " + $scope.offreUtilisateur.telephone_fixe + "\n" +
-                "téléphone portable  : " + $scope.offreUtilisateur.telephone_portable + "\n" +
-                "mail                : " + $scope.offreUtilisateur.mail + "\n" +
-                "lettre de motivation: " + $scope.offreUtilisateur.lettre_de_motivation + "\n" +
-                "curriculum vitae    : " + $scope.offreUtilisateur.curriculum_vitae + "\n" +
-                "salaire souhaité    : " + $scope.offreUtilisateur.salaire + "\n" +
-                "préavis             :   " + $scope.offreUtilisateur.preavis;
-
-            $http({method:'GET', url:'/send/', params: {
-                to: "julien.dalbin@gmail.com",
-                subject: subjectRH,
-                text: messageRH,
-                curriculum_vitae: $scope.CV.name,
-                lettre_de_motivation: $scope.LM.name,
-                RH : '1'
-                }
-            });
-        }
-
+        $state.go('root.carriere.detailCandidatOffre',
+                    {idUtilisateur : $stateParams.idUtilisateur,
+                     idOffre : $stateParams.idOffre}
+                )
     };
+
+    function sendMailCandidat(){
+        var subjectCandidat = "Réponse suite à votre candidature";
+        var messageCandidat = "Bonjour,\n Nous vous remercions de l'intérêt que vous portez à notre entreprise, nous en sommes même très honorés!\n Conscient que vous avez très envie que nous vous répondions, nous profitons de ce mail automatique pour le faire et vous dire merci!";
+
+        $http({method:'GET', url:'/send/', params: {to: $scope.offreUtilisateur.mail,subject: subjectCandidat, text: messageCandidat, RH : '2'} });
+    }
+
+    function sendMailRH(){
+        var subjectRH = "Un nouveau candidat à postulé à l'offre: "+ $scope.offreUtilisateur.titre;
+
+        var messageRH =
+            "nom                 : " + $scope.offreUtilisateur.nom + "\n" +
+            "prenom              : " + $scope.offreUtilisateur.prenom + "\n" +
+            "voie                : " + $scope.offreUtilisateur.voie + "\n" +
+            "code postal         : " + $scope.offreUtilisateur.code_postal + "\n" +
+            "ville               : " + $scope.offreUtilisateur.ville + "\n" +
+            "téléphone fixe      : " + $scope.offreUtilisateur.telephone_fixe + "\n" +
+            "téléphone portable  : " + $scope.offreUtilisateur.telephone_portable + "\n" +
+            "mail                : " + $scope.offreUtilisateur.mail + "\n" +
+            "lettre de motivation: " + $scope.offreUtilisateur.lettre_de_motivation + "\n" +
+            "curriculum vitae    : " + $scope.offreUtilisateur.curriculum_vitae + "\n" +
+            "salaire souhaité    : " + $scope.offreUtilisateur.salaire + "\n" +
+            "préavis             :   " + $scope.offreUtilisateur.preavis;
+
+        $http({method:'GET', url:'/send/', params: {
+            to: "julien.dalbin@gmail.com",
+            subject: subjectRH,
+            text: messageRH,
+            curriculum_vitae: $scope.CV.name,
+            lettre_de_motivation: $scope.LM.name,
+            RH : '1'
+        }
+        });
+    }
 
     $scope.downloadCV = function(){
 
-        $http({method:'GET', url:'/download/', params: {name: $scope.offreUtilisateur.curriculum_vitae}}).
-        success(function(data, status, headers, config) {
+        $http({method:'GET', url:'/download/', params: {name: $scope.offreUtilisateur.curriculum_vitae}}).then(function(succ,err) {
+
+            console.log(succ);
+            console.log(succ.data);
+            //var blob = new Blob([succ.data]);
+            var blob = new Blob([succ.data], {type: "application/pdf"});
+  
+            FileSaver.saveAs(blob, $scope.offreUtilisateur.curriculum_vitae);
+        });
+        /*success(function(data, status, headers, config) {
             console.log(data);
             var element = angular.element('<a/>');
             element.attr({
@@ -119,24 +150,17 @@ PCIE.controller('utilisateurCtrl', function($q, $stateParams, $scope, sessionSer
         }).
         error(function(data, status, headers, config) {
             console.log(data);
-        });
+        });*/
     };
 
     $scope.downloadLM = function(){
 
-        $http({method:'GET', url:'/download/', params: {name: $scope.offreUtilisateur.lettre_de_motivation}}).
-        success(function(data, status, headers, config) {
-            var element = angular.element('<a/>');
-            element.attr({
-                href: 'data:attachment/csv;charset=utf-8,' + encodeURI(data),
-                target: '_blank',
-                download: $scope.offreUtilisateur.lettre_de_motivation
-            })[0].click();
-        }).
-        error(function(data, status, headers, config) {
+        $http({method:'GET', url:'/download/', params: {name: $scope.offreUtilisateur.lettre_de_motivation}}).then(function(succ,err) {
+            var blob = new Blob([succ.data], {type: "application/pdf"});
+            FileSaver.saveAs(blob, $scope.offreUtilisateur.lettre_de_motivation);
         });
-    };
 
+    };
     $scope.uploadCV = function (file) {
 
         return Upload.upload({
@@ -207,5 +231,9 @@ PCIE.controller('utilisateurCtrl', function($q, $stateParams, $scope, sessionSer
             console.log($scope.offreUtilisateur);
         });
     };
+
+    $scope.mettreAJourCommentaireCandidat = function(){
+        utilisateurService.mettreAJourCommentaireCandidat($stateParams.idUtilisateur, $stateParams.idOffre, $scope.offreUtilisateur);
+    }
 
 });

@@ -39,6 +39,28 @@ exports.selectUtilisateursFromOffre = function (req, res) {
 };
 
 
+exports.selectCompetencesFromOffre = function (req, res) {
+
+    var id = req.params.id;
+
+    req.getConnection(function (err, connection) {
+
+        var query = connection.query('SELECT  c.* FROM competence c WHERE c.idOffre = ?;', [id], function (err, rows) {
+
+            if (err)
+                console.log("Error Selecting : %s ", err);
+
+            res.json(rows);
+
+
+        });
+
+        //console.log(query.sql);
+    });
+
+};
+
+
 exports.selectByIdOffre = function (req, res) {
 
     var id = req.params.id;
@@ -86,14 +108,12 @@ exports.insertOffre = function (req, res) {
             active: input.active
         };
 
-
         var query = connection.query("INSERT INTO offre set ? ", data, function (err, rows) {
 
             if (err)
                 console.log("Error Selecting : %s ", err);
 
-            res.redirect('/offre');
-
+            res.json(rows);
 
         });
 
@@ -142,6 +162,45 @@ exports.updateOffre = function (req, res) {
 
 };
 
+exports.activerOffre = function (req, res) {
+
+    var id = req.params.id;
+
+    req.getConnection(function (err, connection) {
+
+        var query = connection.query("UPDATE offre set active=1 WHERE idOffre = ? ", [id], function (err, rows) {
+
+            if (err)
+                console.log("Error Selecting : %s ", err);
+
+            res.redirect('/offre');
+
+        });
+
+        //console.log(query.sql);
+    });
+
+};
+
+exports.desactiverOffre = function (req, res) {
+
+    var id = req.params.id;
+
+    req.getConnection(function (err, connection) {
+
+        var query = connection.query("UPDATE offre set active=0 WHERE idOffre = ? ", [id], function (err, rows) {
+
+            if (err)
+                console.log("Error Selecting : %s ", err);
+
+            res.redirect('/offre');
+
+        });
+
+        //console.log(query.sql);
+    });
+
+};
 
 exports.deleteOffre = function (req, res) {
 

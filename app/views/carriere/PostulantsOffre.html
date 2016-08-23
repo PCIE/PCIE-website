@@ -19,8 +19,6 @@
                     <th>email</th>
                     <th>téléphone_fixe</th>
                     <th>téléphone_portable</th>
-                    <th>curriliculum vitae</th>
-                    <th>lettre de motivation</th>
                     <th>voir Candidat</th>
                 </tr>
                 <tr ng-repeat="var in utilisateursOffre">
@@ -32,9 +30,7 @@
                     <th>{{var.mail}}</th>
                     <th>{{var.telephone_fixe}}</th>
                     <th>{{var.telephone_portable}}</th>
-                    <th>{{var.curriculum_vitae}}</th>
-                    <th>{{var.lettre_de_motivation}}</th>
-                    <th><a ui-sref="root.carriere.detailCandidatOffre({idUtilisateur:var.idUtilisateur,idOffre:var.idOffre})">voir</a></th>
+                    <th><a ui-sref="root.carriere.detailCandidatOffre({idUtilisateur:var.idUtilisateur,idOffre:var.idOffre})"  class="btn btn-primary">voir</a></th>
                 </tr>
             </table>
         </div>

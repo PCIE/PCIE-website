@@ -5,7 +5,7 @@
     <title>Title</title>
 </head>
 <body>
-<div class="container" ng-controller="offreCtrl" ng-init="(idOffre && idOffre != '')?rechercherOffre():init();">
+<div class="container" ng-controller="offreCtrl" ng-init="(idOffre && idOffre !== '')?rechercherOffre():init();">
     <div class="row">
         <div class="col-lg-12 text-center">
             <h1>Offre </h1>
@@ -15,7 +15,7 @@
                 </div>
                 <div class="form-group">
                     <label class="col-sm-offset-1 col-sm-2">Titre</label>
-                    <div class="col-sm-5">
+                    <div class="col-sm-7">
                         <input type="text" class="form-control" required ng-model="offre.titre" name = "titre" ><br>
                         <div ng-if="offreForm.titre.$dirty" ng-messages="offreForm.titre.$error">
                             <div ng-message="required">Veuillez renseigner ce champ!</div>
@@ -24,7 +24,7 @@
                 </div>
                 <div class="form-group">
                     <label class="col-sm-offset-1 col-sm-2">nb de Postes</label>
-                    <div class="col-sm-5">
+                    <div class="col-sm-7">
                         <input type="text" class="form-control" required ng-model="offre.nbDePostes" name = "nb" ><br>
                         <div ng-if="offreForm.nb.$dirty" ng-messages="offreForm.nb.$error">
                             <div ng-message="required">Veuillez renseigner ce champ!</div>
@@ -33,7 +33,7 @@
                 </div>
                 <div class="form-group">
                     <label class="col-sm-offset-1 col-sm-2">statut</label>
-                    <div class="col-sm-5">
+                    <div class="col-sm-7">
                         <input type="text" class="form-control" required ng-model="offre.statut" name = "status" ><br>
                         <div ng-if="offreForm.status.$dirty" ng-messages="offreForm.status.$error">
                             <div ng-message="required">Veuillez renseigner ce champ!</div>
@@ -42,7 +42,7 @@
                 </div>
                 <div class="form-group">
                     <label class="col-sm-offset-1 col-sm-2">Lieu</label>
-                    <div class="col-sm-5">
+                    <div class="col-sm-7">
                         <input type="text" class="form-control" required ng-model="offre.lieu" name = "lieu"><br>
                         <div ng-if="offreForm.lieu.$dirty" ng-messages="offreForm.lieu.$error">
                             <div ng-message="required">Veuillez renseigner ce champ!</div>
@@ -51,7 +51,7 @@
                 </div>
                 <div class="form-group">
                     <label class="col-sm-offset-1 col-sm-2">Zone de Déplacement</label>
-                    <div class="col-sm-5">
+                    <div class="col-sm-7">
                         <input type="text" class="form-control" required ng-model="offre.zoneDeDeplacement" name = "zone" ><br>
                         <div ng-if="offreForm.zoneDeDeplacement.$dirty" ng-messages="offreForm.zoneDeDeplacement.$error">
                             <div ng-message="required">Veuillez renseigner ce champ!</div>
@@ -60,7 +60,7 @@
                 </div>
                 <div class="form-group">
                     <label class="col-sm-offset-1 col-sm-2">Salaire</label>
-                    <div class="col-sm-5">
+                    <div class="col-sm-7">
                         <input type="text" class="form-control" required ng-model="offre.salaire" name = "salaire"><br>
                         <div ng-if="offreForm.salaire.$dirty" ng-messages="offreForm.salaire.$error">
                             <div ng-message="required">Veuillez renseigner ce champ!</div>
@@ -69,7 +69,7 @@
                 </div>
                 <div class="form-group">
                     <label class="col-sm-offset-1 col-sm-2">Expérience</label>
-                    <div class="col-sm-5">
+                    <div class="col-sm-7">
                         <input type="text" class="form-control" required ng-model="offre.experience" name = "experience"><br>
                         <div ng-if="offreForm.experience.$dirty" ng-messages="offreForm.experience.$error">
                             <div ng-message="required">Veuillez renseigner ce champ!</div>
@@ -78,7 +78,7 @@
                 </div>
                 <div class="form-group">
                     <label class="col-sm-offset-1 col-sm-2">Suivi</label>
-                    <div class="col-sm-5">
+                    <div class="col-sm-7">
                         <input type="text" class="form-control" required ng-model="offre.suivi" name = "suivi"><br>
                         <div ng-if="offreForm.suivi.$dirty" ng-messages="offreForm.suivi.$error">
                             <div ng-message="required">Veuillez renseigner ce champ!</div>
@@ -87,8 +87,8 @@
                 </div>
                 <div class="form-group">
                     <label class="col-sm-offset-1 col-sm-2">Description</label>
-                    <div class="col-sm-5">
-                                <textarea required ng-model="offre.description" name = "description" rows="15" cols="100">
+                    <div class="col-sm-7">
+                                <textarea required ng-model="offre.description" class="form-control" name = "description" rows="20" cols="150">
                                 </textarea>
                         <div ng-messages="offreForm.description.$error">
                             <div ng-message="required">Veuillez renseigner ce champ!</div>
@@ -97,17 +97,29 @@
                 </div>
                 <div class="form-group">
                     <label class="col-sm-offset-1 col-sm-2">Active (0/1)</label>
-                    <div class="col-sm-5">
-                        <input type="text" required ng-model="offre.active" name = "active"><br>
-                        <div ng-if="offreForm.active.$dirty" ng-messages="offreForm.active.$error">
-                            <div ng-message="required">Veuillez renseigner ce champ!</div>
-                        </div><br>
+                    <div class="col-sm-7">
+                        <select class="form-control" required ng-model="offre.active" name = "active" ><br>
+                            <option value="1">Active</option>
+                            <option value="0">Inactive</option>
+                        </select>
                     </div>
                 </div>
                 <div class="form-group">
+                    <label class="col-sm-offset-1 col-sm-2">Competences</label>
+                    <md-input-container class="col-sm-7">
+                        <label>Competences</label>
+                        <md-select ng-model="selectedCompetences" multiple>
+                            <md-optgroup label="competences">
+                                <md-option  ng-repeat="competence in competences" ng-value="competence">{{competence}}</md-option>
+                            </md-optgroup>
+                        </md-select>
+                    </md-input-container>
+                </div>
+
+                <div class="form-group">
                     <div class="col-sm-offset-1 col-sm-2">
-                            <button ng-if = "offre.idOffre" ng-click="enregistrerOffre()"  class="btn btn-default">Mettre à jour</button>
-                            <button ng-if = "!offre.idOffre" ng-click="enregistrerOffre()" class="btn btn-default">Enregistrer</button>
+                            <button ng-if = "offre.idOffre" ng-click="enregistrerOffre()"   class="btn btn-primary">Mettre à jour</button>
+                            <button ng-if = "!offre.idOffre" ng-click="enregistrerOffre()"  class="btn btn-primary">Enregistrer</button>
                     </div>
                 </div>
             </form>

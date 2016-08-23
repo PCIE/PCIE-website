@@ -1,4 +1,4 @@
-<section id="travail" ng-controller="offreCtrl" ng-init="rechercherOffres()">
+<section id="offres" ng-controller="offreCtrl" ng-init="rechercherOffres()">
     <br>
     <br>
     <div class="row">
@@ -7,8 +7,11 @@
         </div>
     </div>
     <div class="row">
-        <div class="col-sm-offset-1 col-sm-5">
+        <div class="col-sm-offset-1 col-sm-8">
             <h1><b>Liste des offres : </b></h1>
+        </div>
+        <div class="col-sm-3">
+        <button ui-sref="root.carriere.formulaireOffre" ng-click='init()' class="btn btn-primary">ajouter offre</button>
         </div>
     </div>
     <div class="container" >
@@ -19,6 +22,10 @@
                     <th>Titre</th>
                     <th>Lieu</th>
                     <th>Experience</th>
+                    <th>Active</th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
                     <th></th>
                 </tr>
                 <tr ng-repeat="offre in offres">
@@ -26,16 +33,99 @@
                     <td>{{offre.titre}}</td>
                     <td>{{offre.lieu}}</td>
                     <td>{{offre.experience}}</td>
-                    <td><a ui-sref="root.carriere.detailOffre({idOffre:offre.idOffre})">voir</a></td>
-                    <td><a ui-sref="root.carriere.formulaireOffre({idOffre:offre.idOffre})">modifier</a></td>
-                    <td><a ui-sref="root.carriere.PostulantsOffre({idOffre:offre.idOffre})">postulants</a></td>
+                    <td>{{offre.active==1?"oui":"non"}}</td>
+                    <td><a style="width:100%" ng-if="offre.active==1" ng-click="desactiverOffre(offre.idOffre)" class=" btn btn-primary">Désactiver</a>
+                        <a style="width:100%" ng-if="offre.active!=1" ng-click="activerOffre(offre.idOffre)" class=" btn btn-primary" >Activer</a></td>
+                    <td><a style="width:100%" ui-sref="root.carriere.detailOffre({idOffre:offre.idOffre})"  class="btn btn-primary">voir</a></td>
+                    <td><a style="width:100%" ui-sref="root.carriere.formulaireOffre({idOffre:offre.idOffre})"  class="btn btn-primary">modifier</a></td>
+                    <td><a style="width:100%" ui-sref="root.carriere.PostulantsOffre({idOffre:offre.idOffre})"  class="btn btn-primary">postulants</a></td>
                 </tr>
             </table>
         </div>
     </div>
+</section>
+<section id="competences" ng-controller="competenceCtrl" ng-init="rechercherCompetences()">
     <div class="row">
-        <div class="col-sm-offset-1 col-sm-5">
-            <button ui-sref="root.carriere.formulaireOffre" ng-click='init()' class="btn btn-default">ajouter offre</button>
+        <div class="col-sm-offset-1 col-sm-8">
+            <h1><b>Liste des compétences : </b></h1>
+        </div>
+        <div class="col-sm-3">
+            <button type="button" data-toggle="modal" data-target="#myModal"  class="btn btn-primary" ng-click="ajouterCompetence()">Ajouter Competence</button>
+        </div>
+    </div>
+    <div class="container" >
+        <div class="panel panel-default">
+            <table class="table" >
+                <tr>
+                    <th>id</th>
+                    <th>Titre</th>
+                    <th>Description</th>
+                    <th>Active</th>
+                    <th></th>
+                    <th></th>
+                </tr>
+                <tr ng-repeat="competence in competences">
+                    <td>{{competence.idcompetence}}</td>
+                    <td>{{competence.titre}}</td>
+                    <td>{{competence.description}}</td>
+                    <td>{{competence.active==1?"oui":"non"}}</td>
+                    <td><a style="width:100%" ng-if="competence.active==1" ng-click="desactiverCompetence(competence.idcompetence)" class="col-sm-4 btn btn-primary">Désactiver</a>
+                        <a style="width:100%" ng-if="competence.active!=1" ng-click="activerCompetence(competence.idcompetence)" class="col-sm-4 btn btn-primary" >Activer</a></td>
+                    <td><button style="width:100%" type="button" data-toggle="modal" data-target="#myModal"  class="btn btn-primary" ng-click="editCompetence(competence)">Edit</button></td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <!-- Modal -->
+    <div id="myModal" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Edit Competence</h4>
+                </div>
+                <div class="modal-body">
+                    <form name="competenceForm">
+                        <div class="form-group">
+                            <label class="col-sm-offset-1 col-sm-2">Titre</label>
+                            <div class="col-sm 4">
+                                <input type="text" required ng-model="competence.titre" class="form-control" name = "titre"><br>
+                                <div ng-if="competenceForm.titre.$dirty" ng-messages="competenceForm.titre.$error">
+                                    <div ng-message="required">Veuillez renseigner ce champ!</div>
+                                </div><br>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-offset-1 col-sm-2">Description</label>
+                            <div class="col-sm-4">
+                                <textarea required ng-model="competence.description" class="form-control" name = "description" rows="5" cols="100"><br></textarea>
+                                <div ng-if="competenceForm.description.$dirty" ng-messages="competenceForm.description.$error">
+                                    <div ng-message="required">Veuillez renseigner ce champ!</div>
+                                </div><br>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-offset-1 col-sm-2">Active (0/1)</label>
+                            <div class="col-sm-4">
+                                <select class="form-control" required ng-model="competence.active" name = "active" ><br>
+                                    <option value="1">Active</option>
+                                    <option value="0">Inactive</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-offset-1 col-sm-2">
+                                <button ng-click="enregistrerCompetence(competence)" class="btn btn-primary">Mettre à jour</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+
         </div>
     </div>
 </section>

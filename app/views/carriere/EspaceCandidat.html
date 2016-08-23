@@ -1,4 +1,4 @@
-<section id="travail" ng-controller="utilisateurCtrl" ng-init="rechercherOffresUtilisateur()">
+<section id="utilisateur" ng-controller="utilisateurCtrl" ng-init="rechercherOffresUtilisateur()">
     <br>
     <br>
     <div class="row">
@@ -29,17 +29,17 @@
                     <th>Experience</th>
                     <th>Votre Candidature</th>
                 </tr>
-                <tr ng-repeat="var in offresUtilisateur">
-                    <td>{{var.titre}}</td>
-                    <td>{{var.lieu}}</td>
-                    <td>{{var.experience}}</td>
-                    <td><a ui-sref="root.carriere.detailCandidatOffre({idUtilisateur:var.idUtilisateur,idOffre:var.idOffre})">voir</a></td>
+                <tr ng-repeat="offreUtilisateur in offresUtilisateur">
+                    <td ng-show="offreUtilisateur.active == 1">{{offreUtilisateur.titre}}</td>
+                    <td ng-show="offreUtilisateur.active == 1">{{offreUtilisateur.lieu}}</td>
+                    <td ng-show="offreUtilisateur.active == 1">{{offreUtilisateur.experience}}</td>
+                    <td ng-show="offreUtilisateur.active == 1"><a ui-sref="root.carriere.formulaireCandidatOffre({idUtilisateur:offreUtilisateur.idUtilisateur,idOffre:offreUtilisateur.idOffre})"  class="btn btn-primary" >Modifier sa candidature</a></td>
                 </tr>
             </table>
         </div>
     </div>
 </section>
-<section id="travail" ng-controller="offreCtrl" ng-init="rechercherOffres()">
+<section id="offres" ng-controller="offreCtrl" ng-init="rechercherOffres()">
     <br>
     <br>
     <h1>Liste des offres</h1>
@@ -54,11 +54,11 @@
                     <th></th>
                 </tr>
                 <tr ng-repeat="offre in offres">
-                    <td>{{offre.idOffre}}</td>
-                    <td>{{offre.titre}}</td>
-                    <td>{{offre.lieu}}</td>
-                    <td>{{offre.experience}}</td>
-                    <td><a ui-sref="root.carriere.detailOffre({idOffre:offre.idOffre})">voir</a></td>
+                    <td ng-show="offre.active == 1">{{offre.idOffre}}</td>
+                    <td ng-show="offre.active == 1">{{offre.titre}}</td>
+                    <td ng-show="offre.active == 1">{{offre.lieu}}</td>
+                    <td ng-show="offre.active == 1">{{offre.experience}}</td>
+                    <td ng-show="offre.active == 1"><a ui-sref="root.carriere.detailOffre({idOffre:offre.idOffre})" class="btn btn-primary" >voir</a></td>
                 </tr>
             </table>
         </div>

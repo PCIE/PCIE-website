@@ -20,14 +20,11 @@
     </div>
     <form>
         <div class="row">
-            <div class="col-sm-offset-1 col-sm-1">
-                <input type="radio" />
-            </div>
-            <div class="col-sm-3">
-                <p>J'ai lu et accepte les mentions légales et privées</p>
-            </div>
             <div class="col-sm-offset-1 col-sm-4">
-                <button ui-sref="root.carriere.formulaireCandidatOffre({idUtilisateur:user.idUtilisateur,idOffre:offre.idOffre})">suivant</button><br>
+                <input type="radio" ng-model="mentions" value="OK">J'ai lu et accepte les mentions légales et privées</>
+            </div>
+            <div class="col-sm-2">
+                <button ng-show = "mentions == 'OK'" ui-sref="root.carriere.formulaireCandidatOffre({idUtilisateur:user.idUtilisateur,idOffre:offre.idOffre})"  class="btn btn-primary">suivant</button><br>
             </div>
         </div>
     </form>

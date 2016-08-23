@@ -1,32 +1,109 @@
 <section id="EnregistrementCandidatOffre" ng-controller="utilisateurCtrl" ng-init="rechercherOffreUtilisateur()">
     <div class="container" >
         <div class="row">
-            <div class="col-lg-6 text-center">
-                <h4>{{offreUtilisateur.nom}} {{offreUtilisateur.prenom}}</h4>
-                <h4>Postuler à l'offre : {{offreUtilisateur.titre}}</h4>
-                <form name="utilisateurOffreForm" class="form-horizontal" ng-submit="enregistrerUtilisateurOffre()">
+            <div class="col-sm-12 text-center">
+                <h2>Postuler à l'offre : {{offreUtilisateur.titre}}</h2>
+                <form name="utilisateurOffreForm" class="form-horizontal">
                     <div class="form-group">
-                        <label class="col-sm-offset-1 col-sm-3">Curiculum Vitae</label>
-                        <button class="col-sm-5" ngf-select ng-model="CV" name="CV">Selectionner votre CV</button>
-                        <p>{{CV.name}}</p>
+                        <label class="col-sm-offset-1 col-sm-3">Nom </label>
+                        <div class="col-sm-8">
+                            <input type="text" class="form-control" required ng-model="offreUtilisateur.nom" name = "nom" ><br>
+                            <div ng-if="utilisateurOffreForm.nom.$dirty" ng-messages="utilisateurOffreForm.nom.$error">
+                                <div ng-message="required">Veuillez renseigner ce champ!</div>
+                            </div><br>
+                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="col-sm-offset-1 col-sm-3">Lettre de motivation</label>
-                        <button class="col-sm-5" ngf-select ng-model="LM" name="LM">Selectionner votre lettre de motivation</button>
-                        <p>{{LM.name}}</p>
+                        <label class="col-sm-offset-1 col-sm-3">Prenom </label>
+                        <div class="col-sm-8">
+                            <input type="text" class="form-control" required ng-model="offreUtilisateur.prenom" name = "prenom" ><br>
+                            <div ng-if="utilisateurOffreForm.prenom.$dirty" ng-messages="utilisateurOffreForm.prenom.$error">
+                                <div ng-message="required">Veuillez renseigner ce champ!</div>
+                            </div><br>
+                        </div>
                     </div>
                     <div class="form-group">
-                        <label class="col-sm-offset-1 col-sm-2">Salaire souhaité</label>
-                        <div class="col-sm-5">
-                            <input type="text" class="form-control" required ng-model="salaire" name = "salaire" ><br>
+                        <label class="col-sm-offset-1 col-sm-3">Voie </label>
+                        <div class="col-sm-8">
+                            <input type="text" class="form-control" required ng-model="offreUtilisateur.voie" name = "voie" ><br>
+                            <div ng-if="utilisateurOffreForm.voie.$dirty" ng-messages="utilisateurOffreForm.voie.$error">
+                                <div ng-message="required">Veuillez renseigner ce champ!</div>
+                            </div><br>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-offset-1 col-sm-3">Code Postal </label>
+                        <div class="col-sm-8">
+                            <input type="text" class="form-control" required ng-model="offreUtilisateur.code_postal" name = "code_postal" ><br>
+                            <div ng-if="utilisateurOffreForm.code_postal.$dirty" ng-messages="utilisateurOffreForm.code_postal.$error">
+                                <div ng-message="required">Veuillez renseigner ce champ!</div>
+                            </div><br>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-offset-1 col-sm-3">Ville </label>
+                        <div class="col-sm-8">
+                            <input type="text" class="form-control" required ng-model="offreUtilisateur.ville" name = "ville" ><br>
+                            <div ng-if="utilisateurOffreForm.ville.$dirty" ng-messages="utilisateurOffreForm.ville.$error">
+                                <div ng-message="required">Veuillez renseigner ce champ!</div>
+                            </div><br>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-offset-1 col-sm-3">Téléphone fixe </label>
+                        <div class="col-sm-8">
+                            <input type="text" class="form-control" required ng-model="offreUtilisateur.telephone_fixe" name = "telephone_fixe" ><br>
+                            <div ng-if="utilisateurOffreForm.telephone_fixe.$dirty" ng-messages="utilisateurOffreForm.telephone_fixe.$error">
+                                <div ng-message="required">Veuillez renseigner ce champ!</div>
+                            </div><br>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-offset-1 col-sm-3">Téléphone portable </label>
+                        <div class="col-sm-8">
+                            <input type="text" class="form-control" required ng-model="offreUtilisateur.telephone_portable" name = "telephone_portable" ><br>
+                            <div ng-if="utilisateurOffreForm.telephone_portable.$dirty" ng-messages="utilisateurOffreForm.telephone_portable.$error">
+                                <div ng-message="required">Veuillez renseigner ce champ!</div>
+                            </div><br>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-offset-1 col-sm-3">Mail </label>
+                        <div class="col-sm-8">
+                            <input type="text" class="form-control" required ng-model="offreUtilisateur.mail" name = "mail" ><br>
+                            <div ng-if="utilisateurOffreForm.mail.$dirty" ng-messages="utilisateurOffreForm.mail.$error">
+                                <div ng-message="required">Veuillez renseigner ce champ!</div>
+                            </div><br>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-offset-1 col-sm-3">Curriculum Vitae </label>
+                        <div class="col-sm-8">
+                            <button  ngf-select ng-model="CV" class="btn btn-primary" name="CV">Selectionner votre CV</button>
+                            <p ng-if = "!CV.name && CV.name!=''">{{offreUtilisateur.curriculum_vitae}}</p>
+                            <p ng-else>{{CV.name}}</p>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-offset-1 col-sm-3">Lettre de motivation </label>
+                        <div class="col-sm-8">
+                            <button  ngf-select ng-model="LM" class="btn btn-primary" name="LM">Selectionner votre lettre de motivation</button>
+                            <p ng-if = "!LM.name && LM.name!=''">{{offreUtilisateur.lettre_de_motivation}}</p>
+                            <p ng-else>{{LM.name}}</p>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-offset-1 col-sm-3">Salaire souhaité </label>
+                        <div class="col-sm-8">
+                            <input  type="text" class="form-control" required ng-model="salaire" name = "salaire" ><br>
                             <div ng-if="utilisateurOffreForm.salaire.$dirty" ng-messages="utilisateurOffreForm.ville.$error">
                                 <div ng-message="required">Veuillez renseigner ce champ!</div>
                             </div><br>
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="col-sm-offset-1 col-sm-2">Préavis</label>
-                        <div class="col-sm-5">
+                        <label class="col-sm-offset-1 col-sm-3">Préavis</label>
+                        <div class="col-sm-8">
                             <select class="form-control" required ng-model="preavis" name = "preavis" ><br>
                                 <option value="2semaines">2 semaines</option>
                                 <option value="1mois">1 mois</option>
@@ -35,8 +112,8 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <div class="col-sm-offset-1 col-sm-2">
-                            <button type="submit" ng-click="submit()">submit</button>
+                        <div class="col-sm-offset-5 col-sm-2">
+                            <button type="submit"  class="btn btn-primary" ng-click="submit()">Postuler</button>
                         </div>
                     </div>
                 </form>

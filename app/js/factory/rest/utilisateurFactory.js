@@ -19,6 +19,13 @@ PCIE.factory("utilisateurFactory", function(RestService, $q) {
             });
             return deffered.promise;
         },
+        mettreAJourUtilisateur: function (idUtilisateur, data ) {
+            var deffered = $q.defer();
+            rest.all("/update/" + idUtilisateur).post(data).then(function () {
+                deffered.resolve();
+            });
+            return deffered.promise;
+        },
 
         rechercherOffresUtilisateur: function (idUtilisateur) {
             var deffered = $q.defer();
@@ -30,7 +37,15 @@ PCIE.factory("utilisateurFactory", function(RestService, $q) {
 
         mettreAJourOffreUtilisateur: function (idUtilisateur, idOffre, data ) {
             var deffered = $q.defer();
-            rest.all("/offre/update/" + "/" + idUtilisateur + "/" + idOffre).post(data).then(function () {
+            rest.all("/offre/update/" + idUtilisateur + "/" + idOffre).post(data).then(function () {
+                deffered.resolve();
+            });
+            return deffered.promise;
+        },
+
+        mettreAJourCommentaireCandidat: function (idUtilisateur, idOffre, data ) {
+            var deffered = $q.defer();
+            rest.all("/candidat/update/" + idUtilisateur + "/" + idOffre).post(data).then(function () {
                 deffered.resolve();
             });
             return deffered.promise;
@@ -38,7 +53,7 @@ PCIE.factory("utilisateurFactory", function(RestService, $q) {
 
         enregistrerOffreUtilisateur: function (idUtilisateur,idOffre,data) {
             var deffered = $q.defer();
-            rest.all("/offre/add/" + "/" + idUtilisateur + "/" + idOffre).post(data).then(function () {
+            rest.all("/offre/add/" + idUtilisateur + "/" + idOffre).post(data).then(function () {
                 deffered.resolve();
             });
             return deffered.promise;

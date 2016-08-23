@@ -1,1 +1,1 @@
-var PCIE = angular.module('PCIE', ['ngResource', 'ui.router', 'ui.bootstrap', 'ngTable', 'restangular', 'ngMessages', 'ngFileUpload']);
+var PCIE = angular.module('PCIE', ['ngMaterial', 'ngResource', 'ui.router', 'ui.bootstrap', 'ngTable', 'restangular', 'ngMessages', 'ngFileUpload', 'ngFileSaver']);

@@ -12,12 +12,14 @@ PCIE.service('offreService', function(offreFactory) {
         });
     };
 
-    this.enregistrerOffre = function (Offre){
-        offreFactory.enregistrerOffre(offre);
+    this.enregistrerOffre = function (offre){
+        return offreFactory.enregistrerOffre(offre).then(function(data){
+            return data;
+        });
     };
 
-    this.mettreAJourOffre = function (idOffre,Offre){
-        offreFactory.mettreAJourOffre(offre);
+    this.mettreAJourOffre = function (idOffre,offre){
+        offreFactory.mettreAJourOffre(idOffre,offre);
     };
 
     this.rechercherUtilisateursOffre = function(idOffre){
@@ -25,4 +27,19 @@ PCIE.service('offreService', function(offreFactory) {
             return data;
         });
     };
+
+    this.rechercherCompetencesOffre = function(idOffre){
+        return offreFactory.rechercherCompetencesOffre(idOffre).then(function (data) {
+            return data;
+        });
+    };
+
+    this.activerOffre = function(idOffre){
+        offreFactory.activerCompetence(idOffre);
+    };
+
+    this.desactiverOffre = function(idOffre){
+        offreFactory.desactiverCompetence(idOffre);
+    };
+
 });

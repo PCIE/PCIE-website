@@ -3,9 +3,14 @@
     <br>
     <br>
     <div class="row">
-        <div class="col-sm-offset-2 col-sm-8">
-            <h4><b>Le Candidat  {{offreUtilisateur.nom}} : {{offreUtilisateur.prenom}} a postulé pour l'offre : {{offreUtilisateur.titre}}</b></h4>
+        <h4>
+        <div class="col-sm-offset-2 col-sm-6">
+            <b>{{offreUtilisateur.nom}}, {{offreUtilisateur.prenom}} a postulé pour l'offre : {{offreUtilisateur.titre}}</b>
         </div>
+        <div class="col-sm-2">
+            <button ui-sref="root.carriere.detailOffre({idOffre:offreUtilisateur.idOffre})" class="btn btn-primary" >voir Offre</button>
+        </div>
+        </h4>
     </div>
     <div class="row">
         <div class="col-sm-offset-2 col-sm-2">
@@ -91,24 +96,50 @@
         <div class="col-sm-offset-2 col-sm-2">
             <h4><b>Curriculum Vitae :  </b></h4>
         </div>
-        <div class="col-sm-3">
+        <div class="col-sm-4">
             <h4>{{offreUtilisateur.curriculum_vitae}}</h4>
         </div>
         <div class="col-sm-2">
-            <a ng-href="" target="_blank" type="button" class="btn btn-primary btn-lg btn-block" ng-click="downloadCV()">Download CV</a>
+            <a ng-href="" target="_blank" type="button"  class="btn btn-primary" ng-click="downloadCV()">Download CV</a>
         </div>
     </div>
     <div class="row">
         <div class="col-sm-offset-2 col-sm-2">
             <h4><b>Lettre de Motivation : </b></h4>
         </div>
-        <div class="col-sm-3">
+        <div class="col-sm-4">
             <h4>{{offreUtilisateur.lettre_de_motivation}}</h4>
         </div>
         <div class="col-sm-2">
-            <a ng-href="" target="_blank" type="button" class="btn btn-primary btn-lg btn-block" ng-click="downloadLM()">Download LM</a>
+            <a ng-href="" target="_blank" type="button"  class="btn btn-primary" ng-click="downloadLM()">Download LM</a>
         </div>
     </div>
+    <p>{{user.idrang}}</p>
+    <form name="detailCandidatForm" class="form-horizontal" >
+        <div class="form-group">
+            <label class="col-sm-offset-1 col-sm-2">Commentaire sur le candidat</label>
+            <div class="col-sm-7">
+                <textarea ng-if="user.idrang ==4" required ng-model="offreUtilisateur.commentaires_candidat" class="form-control" name = "commentaires_candidat" rows="10" cols="150"><br></textarea>
+                <div ng-if="user.idrang ==4" ng-if="detailCandidatForm.commentaires_candidat.$dirty" ng-messages="offreForm.active.$error">
+                    <div ng-if="user.idrang ==4" ng-message="required">Veuillez renseigner ce champ!</div>
+                </div><br>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-offset-1 col-sm-2">Commentaire sur le candidat la candidature</label>
+            <div class="col-sm-7">
+                <textarea ng-if="user.idrang ==4" type="text" required ng-model="offreUtilisateur.commentaires_candidature" class="form-control" name = "commentaires_candidature" rows="10" cols="150"><br></textarea>
+                <div ng-if="user.idrang ==4" ng-if="detailCandidatForm.commentaires_candidature.$dirty" ng-messages="offreForm.active.$error">
+                    <div ng-if="user.idrang ==4" ng-message="required">Veuillez renseigner ce champ!</div>
+                </div><br>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-sm-offset-1 col-sm-2">
+                <button ng-if="user.idrang ==4" ng-click="mettreAJourCommentaireCandidat()"   class="btn btn-primary">Mettre à jour Commentaires</button>
+                </div>
+        </div>
+    </form>
 
 
 

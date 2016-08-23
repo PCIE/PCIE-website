@@ -11,7 +11,7 @@
         </div>
 
         <div class="col-sm-1">
-                <input ng-if="user.idrang!='4'" type="button" ui-sref="root.carriere.mentionsLegales({idOffre:offre.idOffre})" value = 'Postuler' class="btn btn-block btn-info"/><br>
+                <button  ng-if="user.idrang==2" ui-sref="root.carriere.mentionsLegales({idOffre:offre.idOffre})" class="btn btn-primary">Postuler</button><br>
         </div>
     </div>
     <div class="row">
@@ -69,7 +69,7 @@
     </div>
     <div class="row">
         <div class="col-sm-offset-2 col-sm-8">
-            <p>{{offre.description}}</p>
+            <p style="white-space: pre;">{{offre.description}}</p>
         </div>
     </div>
 

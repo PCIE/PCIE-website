@@ -1,4 +1,5 @@
 var fs = require('fs');
+var path = require('path');
 
 UserController = function() {};
 
@@ -52,7 +53,12 @@ UserController.prototype.downloadFile = function(req, res) {
 
     console.log(filesPath);
 
-    res.download(filesPath+fileName, fileName);
+    console.log(path.join(filesPath,fileName));
+
+    res.setHeader('Content-Type', 'application/pdf');
+    res.setHeader("Content-Disposition", "attachment");
+
+    res.download(path.join(filesPath,fileName), fileName);
 }
 
 module.exports = new UserController();
