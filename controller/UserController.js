@@ -17,7 +17,7 @@ UserController.prototype.uploadFile = function(req, res) {
         console.log("mettre A Jour CV");
         req.getConnection(function (err, connection) {
 
-            var query = connection.query("UPDATE utilisateur_has_offre set curriculum_vitae=? WHERE idUtilisateur = ? AND idOffre=?", [file.name,req.body.idUtilisateur,req.body.idOffre], function (err, rows) {
+            var query = connection.query("UPDATE utilisateur set curriculum_vitae=? WHERE idUtilisateur = ?", [file.name,req.body.idUtilisateur], function (err, rows) {
 
                 if (err)
                     console.log("Error Selecting : %s ", err);
@@ -33,7 +33,7 @@ UserController.prototype.uploadFile = function(req, res) {
         console.log("mettre A Jour LM");
         req.getConnection(function (err, connection) {
 
-            var query = connection.query("UPDATE utilisateur_has_offre set lettre_de_motivation=? WHERE idUtilisateur = ? AND idOffre=?", [file.name,req.body.idUtilisateur,req.body.idOffre], function (err, rows) {
+            var query = connection.query("UPDATE utilisateur set lettre_de_motivation=? WHERE idUtilisateur = ?", [file.name,req.body.idUtilisateur], function (err, rows) {
 
                 if (err)
                     console.log("Error Selecting : %s ", err);

@@ -95,7 +95,7 @@
                     <div class="form-group">
                         <label class="col-sm-offset-1 col-sm-3">Salaire actuel </label>
                         <div class="col-sm-8">
-                            <input  type="text" class="form-control" required ng-model="salaire_actuel" name = "salaire_actuel" ><br>
+                            <input  type="text" class="form-control" required ng-model="offreUtilisateur.salaire_actuel" name = "salaire_actuel" ><br>
                             <div ng-if="utilisateurOffreForm.salaire_actuel.$dirty" ng-messages="utilisateurOffreForm.salaire_actuel.$error">
                                 <div ng-message="required">Veuillez renseigner ce champ!</div>
                             </div><br>
@@ -104,7 +104,7 @@
                     <div class="form-group">
                         <label class="col-sm-offset-1 col-sm-3">Salaire souhaité </label>
                         <div class="col-sm-8">
-                            <input  type="text" class="form-control" required ng-model="salaire" name = "salaire" ><br>
+                            <input  type="text" class="form-control" required ng-model="offreUtilisateur.salaire" name = "salaire" ><br>
                             <div ng-if="utilisateurOffreForm.salaire.$dirty" ng-messages="utilisateurOffreForm.salaire.$error">
                                 <div ng-message="required">Veuillez renseigner ce champ!</div>
                             </div><br>
@@ -113,7 +113,7 @@
                     <div class="form-group">
                         <label class="col-sm-offset-1 col-sm-3">Préavis</label>
                         <div class="col-sm-8">
-                            <select class="form-control" required ng-model="preavis" name = "preavis" ><br>
+                            <select class="form-control" required ng-model="offreUtilisateur.preavis" name = "preavis" ><br>
                                 <option value="immediate">Immediate</option>
                                 <option value="1mois">1 mois</option>
                                 <option value="2mois">2 mois</option>
@@ -123,7 +123,7 @@
                     </div>
                     <div class="form-group">
                         <div class="col-sm-offset-5 col-sm-2">
-                            <button type="submit"  class="btn btn-primary" ng-click="submit()">Postuler</button>
+                            <button type="submit"  class="btn btn-primary" ng-click="submitCandidatureOffre()">Postuler</button>
                         </div>
                     </div>
                 </form>

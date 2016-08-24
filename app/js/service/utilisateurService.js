@@ -49,8 +49,8 @@ PCIE.service('utilisateurService', function(utilisateurFactory) {
         utilisateurFactory.mettreAJourOffreUtilisateur(idUtilisateur,idOffre,offreUtilisateur);
     };
 
-    this.mettreAJourCommentaireCandidat = function(idUtilisateur,idOffre,offreUtilisateur){
-        utilisateurFactory.mettreAJourCommentaireCandidat(idUtilisateur,idOffre,offreUtilisateur);
+    this.mettreAJourCommentaireCandidat = function(idUtilisateur,offreUtilisateur){
+        utilisateurFactory.mettreAJourCommentaireCandidat(idUtilisateur,offreUtilisateur);
     }
 
     this.offreUtilisateurExist = function(idUtilisateur,idOffre){
@@ -64,5 +64,9 @@ PCIE.service('utilisateurService', function(utilisateurFactory) {
             return data;
         })
     }
+
+    this.enregistrerCandidatureSpontanee = function(utilisateur){
+        utilisateurFactory.enregistrerCandidatureSpontanee(utilisateur);
+    };
 
 });

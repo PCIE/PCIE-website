@@ -43,30 +43,29 @@ PCIE.controller('utilisateurCtrl', function($q, $stateParams, $scope, $state, se
             $scope.offreUtilisateur.telephone_fixe = $scope.user.telephone_fixe;
             $scope.offreUtilisateur.telephone_portable = $scope.user.telephone_portable;
             $scope.offreUtilisateur.mail = $scope.user.mail;
-            $scope.offreUtilisateur.hash = $scope.user.hash;
+            $scope.offreUtilisateur.curriculum_vitae = $scope.user.curriculum_vitae;
+            $scope.offreUtilisateur.lettre_de_motivation = $scope.user.lettre_de_motivation;
+            $scope.offreUtilisateur.preavis = $scope.user.preavis;
+            $scope.offreUtilisateur.salaire = $scope.user.salaire;
+            $scope.offreUtilisateur.salaire_actuel = $scope.user.salaire_actuel;
+
         }
     };
 
-    $scope.submit = function() {
+    $scope.submitCandidatureOffre = function() {
 
-        console.log($scope.salaire_actuel);
-        console.log($scope.salaire);
-        console.log($scope.preavis);
-
-        console.log($scope.CV);
-        console.log($scope.LM);
+        utilisateurService.offreUtilisateurExist($stateParams.idUtilisateur,$stateParams.idOffre).then(function(data){
+            $scope.newOffreUtilisateur = data.numRows;
+            console.log($scope.newOffreUtilisateur);
+        })
+        $scope.offreUtilisateur.curriculum_vitae = $scope.CV.name;
+        $scope.offreUtilisateur.lettre_de_motivation = $scope.LM.name;
 
         if($scope.newOffreUtilisateur==1){
-            $scope.offreUtilisateur.salaire_actuel = $scope.salaire_actuel;
-            $scope.offreUtilisateur.salaire = $scope.salaire;
-            $scope.offreUtilisateur.preavis = $scope.preavis;
             console.log("mettreAJour");
             utilisateurService.mettreAJourOffreUtilisateur($stateParams.idUtilisateur,$stateParams.idOffre,$scope.offreUtilisateur);
 
         }else{
-            $scope.offreUtilisateur.salaire_actuel = $scope.salaire_actuel;
-            $scope.offreUtilisateur.salaire = $scope.salaire;
-            $scope.offreUtilisateur.preavis = $scope.preavis;
             console.log("Enregistrer");
             utilisateurService.enregistrerOffreUtilisateur($stateParams.idUtilisateur,$stateParams.idOffre,$scope.offreUtilisateur);
         }
@@ -78,8 +77,50 @@ PCIE.controller('utilisateurCtrl', function($q, $stateParams, $scope, $state, se
                         console.log("LM upload successed");
                         $scope.rechercherOffreUtilisateur();
                         sendMailCandidat();
+                        console.log("mail candidat envoyé");
+                        sendMailRHoffre();
+                        console.log("mail RH envoyé");
+                    },function(){
+                        console.log("LM upload failed");
+                    },function(){
+                        console.log("LM upload in progress");
+                    }
+                )
+            },function(){
+                console.log("CV upload failed");
+            },function(){
+                console.log("CV upload in progress");
+            })
+        }
+
+        console.log($scope.CV);
+        console.log($scope.LM);
+
+        $state.go('root.carriere.detailCandidatOffre',
+            {idUtilisateur : $stateParams.idUtilisateur,
+                idOffre : $stateParams.idOffre}
+        )
+    };
+
+    $scope.submitCandidatureSpontanee = function() {
+
+        console.log($scope.CV);
+        console.log($scope.LM);
+
+        utilisateurService.enregistrerCandidatureSpontanee($scope.utilisateur);
+
+        $scope.utilisateur.curriculum_vitae = $scope.CV.name;
+        $scope.utilisateur.lettre_de_motivation = $scope.LM.name;
+
+        if ($scope.candidatureSpontanee.CV.$valid && $scope.CV && $scope.candidatureSpontanee.LM.$valid && $scope.LM) {
+            $scope.uploadCV($scope.CV).then(function(){
+                console.log("CV upload successed");
+                $scope.uploadLM($scope.LM).then(function(){
+                        console.log("LM upload successed");
+                        $scope.rechercherOffreUtilisateur();
+                        sendMailCandidat();
                             console.log("mail candidat envoyé");
-                        sendMailRH();
+                        sendMailRHSpontanee();
                             console.log("mail RH envoyé");
                     },function(){
                             console.log("LM upload failed");
@@ -94,13 +135,6 @@ PCIE.controller('utilisateurCtrl', function($q, $stateParams, $scope, $state, se
             })
         }
 
-        console.log($scope.CV);
-        console.log($scope.LM);
-
-        $state.go('root.carriere.detailCandidatOffre',
-                    {idUtilisateur : $stateParams.idUtilisateur,
-                     idOffre : $stateParams.idOffre}
-                )
     };
 
     function sendMailCandidat(){
@@ -110,7 +144,7 @@ PCIE.controller('utilisateurCtrl', function($q, $stateParams, $scope, $state, se
         $http({method:'GET', url:'/send/', params: {to: $scope.offreUtilisateur.mail,subject: subjectCandidat, text: messageCandidat, RH : '2'} });
     }
 
-    function sendMailRH(){
+    function sendMailRHoffre(){
         var subjectRH = "Un nouveau candidat à postulé à l'offre: "+ $scope.offreUtilisateur.titre;
 
         var messageRH =
@@ -124,8 +158,38 @@ PCIE.controller('utilisateurCtrl', function($q, $stateParams, $scope, $state, se
             "mail                : " + $scope.offreUtilisateur.mail + "\n" +
             "lettre de motivation: " + $scope.offreUtilisateur.lettre_de_motivation + "\n" +
             "curriculum vitae    : " + $scope.offreUtilisateur.curriculum_vitae + "\n" +
+            "salaire actuel   : " + $scope.offreUtilisateur.salaire_actuel + "\n" +
             "salaire souhaité    : " + $scope.offreUtilisateur.salaire + "\n" +
             "préavis             :   " + $scope.offreUtilisateur.preavis;
+
+        $http({method:'GET', url:'/send/', params: {
+            to: "julien.dalbin@gmail.com",
+            subject: subjectRH,
+            text: messageRH,
+            curriculum_vitae: $scope.CV.name,
+            lettre_de_motivation: $scope.LM.name,
+            RH : '1'
+        }
+        });
+    }
+
+    function sendMailRHSpontanee(){
+        var subjectRH = "Un nouveau candidat à postulé en tant que candidature spontanée";
+
+        var messageRH =
+            "nom                 : " + $scope.utilisateur.nom + "\n" +
+            "prenom              : " + $scope.utilisateur.prenom + "\n" +
+            "voie                : " + $scope.utilisateur.voie + "\n" +
+            "code postal         : " + $scope.utilisateur.code_postal + "\n" +
+            "ville               : " + $scope.utilisateur.ville + "\n" +
+            "téléphone fixe      : " + $scope.utilisateur.telephone_fixe + "\n" +
+            "téléphone portable  : " + $scope.utilisateur.telephone_portable + "\n" +
+            "mail                : " + $scope.utilisateur.mail + "\n" +
+            "lettre de motivation: " + $scope.utilisateur.lettre_de_motivation + "\n" +
+            "curriculum vitae    : " + $scope.utilisateur.curriculum_vitae + "\n" +
+            "salaire actuel    : " + $scope.utilisateur.salaire_actuel + "\n" +
+            "salaire souhaité    : " + $scope.utilisateur.salaire + "\n" +
+            "préavis             :   " + $scope.utilisateur.preavis;
 
         $http({method:'GET', url:'/send/', params: {
             to: "julien.dalbin@gmail.com",
@@ -243,7 +307,7 @@ PCIE.controller('utilisateurCtrl', function($q, $stateParams, $scope, $state, se
     };
 
     $scope.mettreAJourCommentaireCandidat = function(){
-        utilisateurService.mettreAJourCommentaireCandidat($stateParams.idUtilisateur, $stateParams.idOffre, $scope.offreUtilisateur);
+        utilisateurService.mettreAJourCommentaireCandidat($stateParams.idUtilisateur, $scope.offreUtilisateur);
     }
 
     $scope.rechercherOffresNonPostulees = function(){

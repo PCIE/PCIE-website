@@ -43,9 +43,9 @@ PCIE.factory("utilisateurFactory", function(RestService, $q) {
             return deffered.promise;
         },
 
-        mettreAJourCommentaireCandidat: function (idUtilisateur, idOffre, data ) {
+        mettreAJourCommentaireCandidat: function (idUtilisateur, data ) {
             var deffered = $q.defer();
-            rest.all("/candidat/update/" + idUtilisateur + "/" + idOffre).post(data).then(function () {
+            rest.all("/candidat/update/" + idUtilisateur).post(data).then(function () {
                 deffered.resolve();
             });
             return deffered.promise;
@@ -71,6 +71,14 @@ PCIE.factory("utilisateurFactory", function(RestService, $q) {
             var deffered = $q.defer();
             rest.all("offre/nonPostulees").get(idUtilisateur).then(function (data) {
                 deffered.resolve(data.plain());
+            });
+            return deffered.promise;
+        },
+
+        enregistrerCandidatureSpontanee: function (utilisateur) {
+            var deffered = $q.defer();
+            rest.all("candidatureSpontanee").post(utilisateur).then(function () {
+                deffered.resolve();
             });
             return deffered.promise;
         }

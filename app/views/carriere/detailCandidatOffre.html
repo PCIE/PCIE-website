@@ -78,6 +78,14 @@
     </div>
     <div class="row">
         <div class="col-sm-offset-2 col-sm-2">
+            <h4><b>Salaire actuel : </b></h4>
+        </div>
+        <div class="col-sm-4">
+            <h4>{{offreUtilisateur.salaire_actuel}}</h4>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-offset-2 col-sm-2">
             <h4><b>Salaire souhaité : </b></h4>
         </div>
         <div class="col-sm-4">
@@ -116,19 +124,10 @@
     </div>
     <form name="detailCandidatForm" class="form-horizontal" >
         <div class="form-group">
-            <label ng-if="user.idrang ==4" class="col-sm-offset-1 col-sm-2">Commentaire sur le candidat</label>
+            <label ng-if="user.idrang ==4" class="col-sm-offset-2 col-sm-2">Commentaire sur le candidat</label>
             <div class="col-sm-7">
-                <textarea ng-if="user.idrang ==4" required ng-model="offreUtilisateur.commentaires_candidat" class="form-control" name = "commentaires_candidat" rows="10" cols="150"><br></textarea>
-                <div ng-if="user.idrang ==4" ng-if="detailCandidatForm.commentaires_candidat.$dirty" ng-messages="offreForm.active.$error">
-                    <div ng-if="user.idrang ==4" ng-message="required">Veuillez renseigner ce champ!</div>
-                </div><br>
-            </div>
-        </div>
-        <div class="form-group">
-            <label ng-if="user.idrang ==4" class="col-sm-offset-1 col-sm-2">Commentaire sur le candidat la candidature</label>
-            <div class="col-sm-7">
-                <textarea ng-if="user.idrang ==4" type="text" required ng-model="offreUtilisateur.commentaires_candidature" class="form-control" name = "commentaires_candidature" rows="10" cols="150"><br></textarea>
-                <div ng-if="user.idrang ==4" ng-if="detailCandidatForm.commentaires_candidature.$dirty" ng-messages="offreForm.active.$error">
+                <textarea ng-if="user.idrang ==4" required ng-model="offreUtilisateur.commentaire_candidat" class="form-control" name = "commentaire_candidat" rows="10" cols="150"><br></textarea>
+                <div ng-if="user.idrang ==4" ng-if="detailCandidatForm.commentaire_candidat.$dirty" ng-messages="offreForm.active.$error">
                     <div ng-if="user.idrang ==4" ng-message="required">Veuillez renseigner ce champ!</div>
                 </div><br>
             </div>

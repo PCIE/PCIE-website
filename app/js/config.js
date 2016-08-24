@@ -101,6 +101,16 @@ PCIE.config(function ($stateProvider, $urlRouterProvider) {
             }
         })
 
+        .state('root.carriere.formulaireCandidatureSpontanee', {
+            url: '/formulaireCandidatureSpontanee',
+            views: {
+                'container@': {
+                    templateUrl: '../views/carriere/formulaireCandidatureSpontanee.html',
+                    controller: 'utilisateurCtrl'
+                }
+            }
+        })
+
         .state('root.carriere.formulaireCandidatOffre', {
             url: '/formulaireCandidatOffre/:idUtilisateur/:idOffre',
             views: {
