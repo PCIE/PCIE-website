@@ -1,34 +1,55 @@
-
-<section id="espaceCandidat" ng-controller="loginCtrl">
-    <br>
-    <br>
-    <div class="row">
-        <div class="col-sm-offset-4 col-sm-4">
-            <h1>Accèder à mon espace</h1><br>
+<section id="offres" ng-controller="offreCtrl" ng-init="rechercherOffres()">
+    <h1>Liste des offres</h1>
+    <div class="container" >
+        <div class="panel panel-default">
+            <table class="table" >
+                <tr>
+                    <th>id</th>
+                    <th>Titre</th>
+                    <th>Lieu</th>
+                    <th>Experience</th>
+                    <th></th>
+                </tr>
+                <tr ng-repeat="offre in offres">
+                    <td ng-show="offre.active == 1">{{offre.idOffre}}</td>
+                    <td ng-show="offre.active == 1">{{offre.titre}}</td>
+                    <td ng-show="offre.active == 1">{{offre.lieu}}</td>
+                    <td ng-show="offre.active == 1">{{offre.experience}}</td>
+                    <td ng-show="offre.active == 1"><a ui-sref="root.carriere.detailOffre({idOffre:offre.idOffre})" class="btn btn-primary" >voir</a></td>
+                </tr>
+            </table>
         </div>
     </div>
-    <form class="form-horizontal" role="form">
-        <div class="form-group">
-            <label class="control-label col-sm-4" >Email:</label>
-            <div class="col-sm-4">
-                <input type="email" ng-model="userData.email" name="email" placeholder="Addresse Email" required="" class="form-control">
+</section>
+<section id="espaceCandidat" ng-controller="loginCtrl">
+    <section  class="col-sm-offset-1 col-sm-5">
+        <h1>Accèder à mon espace</h1><br>
+        <form class="form-horizontal" role="form">
+            <div class="form-group">
+                <label class="control-label col-sm-4" >Email:</label>
+                <div class="col-sm-4">
+                    <input type="email" ng-model="userData.email" name="email" placeholder="Addresse Email" required="" class="form-control">
+                </div>
             </div>
-        </div>
-        <div class="form-group">
-            <label class="control-label col-sm-4" >Password:</label>
-            <div class="col-sm-4">
-                <input type="password" ng-model="userData.password" name="password" placeholder="Mot de passe" required="" class="form-control">
+            <div class="form-group">
+                <label class="control-label col-sm-4" >Password:</label>
+                <div class="col-sm-4">
+                    <input type="password" ng-model="userData.password" name="password" placeholder="Mot de passe" required="" class="form-control">
+                </div>
             </div>
-        </div>
-        <div class="form-group">
-            <div class="col-sm-offset-4 col-sm-4">
-                <button type="submit" ng-click='login(user)' name="go" class="btn btn-block btn-info">S'identifier</button>
+            <div class="form-group">
+                <div class="col-sm-offset-4 col-sm-4">
+                    <button type="submit" ng-click='login(user)' name="go" class="btn btn-block btn-info">S'identifier</button>
+                </div>
             </div>
-        </div>
-    </form>
-    <div class="row">
-        <div class="col-sm-offset-4 col-sm-6">
-            <h4>Je postule pour la première fois</h4><a ui-sref="root.carriere.formulaireCandidat">S'incrire</a>
-        </div>
+            <div class="col-sm-offset-4 col-sm-6">
+                <h4>Je postule pour la première fois</h4><a ui-sref="root.carriere.formulaireCandidat">S'incrire</a>
+            </div>
+        </form>
+    </section>
+    <section class="col-sm-offset-1 col-sm-5">
+        <h1 >Candidature Spontanée</h1><br>
+        <a ui-sref="root.carriere.formulaireCandidat">S'incrire</a><br>
+    </section>
 </section>
 <script type="text/javascript" src="./js/scrollSpy.js"></script>

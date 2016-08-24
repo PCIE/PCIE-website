@@ -53,4 +53,16 @@ PCIE.service('utilisateurService', function(utilisateurFactory) {
         utilisateurFactory.mettreAJourCommentaireCandidat(idUtilisateur,idOffre,offreUtilisateur);
     }
 
+    this.offreUtilisateurExist = function(idUtilisateur,idOffre){
+        return utilisateurFactory.offreUtilisateurExist(idUtilisateur,idOffre).then(function(data){
+            return data;
+        });
+    }
+
+    this.rechercherOffresNonPostulees = function(idUtilisateur){
+        return utilisateurFactory.rechercherOffresNonPostulees(idUtilisateur).then(function(data){
+            return data;
+        })
+    }
+
 });

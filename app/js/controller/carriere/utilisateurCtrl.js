@@ -6,9 +6,11 @@ PCIE.controller('utilisateurCtrl', function($q, $stateParams, $scope, $state, se
 
     $scope.user = sessionService.getUser();
     console.log($scope.user);
-    $scope.offresUtilisateur;
-    $scope.offreUtilisateur;
+    $scope.offresUtilisateur = [];
+    $scope.offresNonPostulees = [];
+    $scope.offreUtilisateur = {};
     $scope.utilisateur = {};
+    $scope.newOffreUtilisateur;
     $scope.CV;
     $scope.LM;
     $scope.salaire;
@@ -23,38 +25,46 @@ PCIE.controller('utilisateurCtrl', function($q, $stateParams, $scope, $state, se
     var deferredCV = $q.defer();
     var deferredLM = $q.defer();
 
+    $scope.initFormulaireCandidatOffre = function(){
+
+        utilisateurService.offreUtilisateurExist($stateParams.idUtilisateur,$stateParams.idOffre).then(function(data){
+            $scope.newOffreUtilisateur = data.numRows;
+            console.log($scope.newOffreUtilisateur);
+        })
+
+        if($scope.newOffreUtilisateur!=1){
+
+            $scope.offreUtilisateur.nom = $scope.user.nom;
+            $scope.offreUtilisateur.prenom = $scope.user.prenom;
+            $scope.offreUtilisateur.voie = $scope.user.voie;
+            $scope.offreUtilisateur.code_postal = $scope.user.code_postal;
+            $scope.offreUtilisateur.voie = $scope.user.voie;
+            $scope.offreUtilisateur.ville = $scope.user.ville;
+            $scope.offreUtilisateur.telephone_fixe = $scope.user.telephone_fixe;
+            $scope.offreUtilisateur.telephone_portable = $scope.user.telephone_portable;
+            $scope.offreUtilisateur.mail = $scope.user.mail;
+            $scope.offreUtilisateur.hash = $scope.user.hash;
+        }
+    };
+
     $scope.submit = function() {
 
-        $scope.rechercherOffreUtilisateur();
+        console.log($scope.salaire_actuel);
         console.log($scope.salaire);
         console.log($scope.preavis);
 
         console.log($scope.CV);
         console.log($scope.LM);
 
-        $scope.utilisateur.nom = $scope.offreUtilisateur.nom;
-        $scope.utilisateur.prenom = $scope.offreUtilisateur.prenom;
-        $scope.utilisateur.voie = $scope.offreUtilisateur.voie;
-        $scope.utilisateur.code_postal = $scope.offreUtilisateur.code_postal;
-        $scope.utilisateur.voie = $scope.offreUtilisateur.voie;
-        $scope.utilisateur.ville = $scope.offreUtilisateur.ville;
-        $scope.utilisateur.telephone_fixe = $scope.offreUtilisateur.telephone_fixe;
-        $scope.utilisateur.telephone_portable = $scope.offreUtilisateur.telephone_portable;
-        $scope.utilisateur.mail = $scope.offreUtilisateur.mail;
-        $scope.utilisateur.hash = $scope.offreUtilisateur.hash;
-        $scope.utilisateur.idrang = '2';
-
-        console.log($scope.utilisateur);
-
-        utilisateurService.mettreAJourUtilisateur($stateParams.idUtilisateur,$scope.utilisateur);
-
-        if($scope.offreUtilisateur!=null && $scope.offreUtilisateur!={}){
+        if($scope.newOffreUtilisateur==1){
+            $scope.offreUtilisateur.salaire_actuel = $scope.salaire_actuel;
             $scope.offreUtilisateur.salaire = $scope.salaire;
             $scope.offreUtilisateur.preavis = $scope.preavis;
             console.log("mettreAJour");
             utilisateurService.mettreAJourOffreUtilisateur($stateParams.idUtilisateur,$stateParams.idOffre,$scope.offreUtilisateur);
 
         }else{
+            $scope.offreUtilisateur.salaire_actuel = $scope.salaire_actuel;
             $scope.offreUtilisateur.salaire = $scope.salaire;
             $scope.offreUtilisateur.preavis = $scope.preavis;
             console.log("Enregistrer");
@@ -234,6 +244,13 @@ PCIE.controller('utilisateurCtrl', function($q, $stateParams, $scope, $state, se
 
     $scope.mettreAJourCommentaireCandidat = function(){
         utilisateurService.mettreAJourCommentaireCandidat($stateParams.idUtilisateur, $stateParams.idOffre, $scope.offreUtilisateur);
+    }
+
+    $scope.rechercherOffresNonPostulees = function(){
+        utilisateurService.rechercherOffresNonPostulees($scope.user.idUtilisateur).then(function(data){
+            $scope.offresNonPostulees = data;
+            console.log($scope.offresNonPostulees);
+        });
     }
 
 });

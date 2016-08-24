@@ -163,11 +163,12 @@ exports.updateUtilisateur = function (req, res) {
     req.getConnection(function (err, connection) {
 
         var data = {
+            salaire_actuel : input.salaire_actuel,
             salaire : input.salaire,
             preavis : input.preavis
         };
 
-        var query = connection.query("INSERT INTO utilisateur_has_offre SET idUtilisateur= ? , idOffre = ?, salaire = ?, preavis = ? ", [idUtilisateur,idOffre,data.salaire,data.preavis], function (err, rows) {
+        var query = connection.query("INSERT INTO utilisateur_has_offre SET idUtilisateur= ? , idOffre = ?, salaire_actuel=?, salaire = ?, preavis = ? ", [idUtilisateur,idOffre,data.salaire_actuel, data.salaire,data.preavis], function (err, rows) {
 
             if (err)
                 console.log("Error Selecting : %s ", err);
@@ -178,6 +179,53 @@ exports.updateUtilisateur = function (req, res) {
 
 };
 
+exports.offreUtilisateurExist = function (req, res) {
+
+    var idUtilisateur = req.params.idUtilisateur;
+    var idOffre = req.params.idOffre;
+
+    console.log("mettre A Jour Commentaire Candidat");
+
+    req.getConnection(function (err, connection) {
+
+        var query = connection.query("SELECT * from utilisateur_has_offre WHERE idUtilisateur = ? AND idOffre = ?", [idUtilisateur,idOffre], function (err, rows) {
+
+            if (err)
+                console.log("Error Selecting : %s ", err);
+
+            numRows = rows.length;
+            res.json({numRows:numRows});
+        });
+
+
+
+        //console.log(query.sql);
+    });
+
+};
+
+
+
+exports.offresNonPostulees = function (req, res) {
+
+    var idUtilisateur = req.params.idUtilisateur;
+
+    console.log("mettre A Jour Commentaire Candidat");
+
+    req.getConnection(function (err, connection) {
+
+        var query = connection.query("SELECT * from offre o WHERE NOT EXISTS ( SELECT idOffre FROM utilisateur_has_offre uo WHERE uo.idOffre =  o.idOffre AND uo.idUtilisateur=? )", [idUtilisateur], function (err, rows) {
+
+            if (err)
+                console.log("Error Selecting : %s ", err);
+
+            res.json(rows);
+        });
+
+        //console.log(query.sql);
+    });
+
+};
 
 exports.mettreAJourOffreUtilisateur = function (req, res) {
 
@@ -190,11 +238,12 @@ exports.mettreAJourOffreUtilisateur = function (req, res) {
     req.getConnection(function (err, connection) {
 
         var data = {
+            salaire_actuel : input.salaire_actuel,
             salaire : input.salaire,
             preavis : input.preavis
         };
 
-        var query = connection.query("UPDATE utilisateur_has_offre SET salaire = ?, preavis = ? WHERE idUtilisateur = ? AND idOffre = ?", [data.salaire,data.preavis,idUtilisateur,idOffre], function (err, rows) {
+        var query = connection.query("UPDATE utilisateur_has_offre SET salaire_actuel=?, salaire = ?, preavis = ? WHERE idUtilisateur = ? AND idOffre = ?", [data.salaire_actuel, data.salaire,data.preavis,idUtilisateur,idOffre], function (err, rows) {
 
             if (err)
                 console.log("Error Selecting : %s ", err);

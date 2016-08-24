@@ -114,10 +114,9 @@
             <a ng-href="" target="_blank" type="button"  class="btn btn-primary" ng-click="downloadLM()">Download LM</a>
         </div>
     </div>
-    <p>{{user.idrang}}</p>
     <form name="detailCandidatForm" class="form-horizontal" >
         <div class="form-group">
-            <label class="col-sm-offset-1 col-sm-2">Commentaire sur le candidat</label>
+            <label ng-if="user.idrang ==4" class="col-sm-offset-1 col-sm-2">Commentaire sur le candidat</label>
             <div class="col-sm-7">
                 <textarea ng-if="user.idrang ==4" required ng-model="offreUtilisateur.commentaires_candidat" class="form-control" name = "commentaires_candidat" rows="10" cols="150"><br></textarea>
                 <div ng-if="user.idrang ==4" ng-if="detailCandidatForm.commentaires_candidat.$dirty" ng-messages="offreForm.active.$error">
@@ -126,7 +125,7 @@
             </div>
         </div>
         <div class="form-group">
-            <label class="col-sm-offset-1 col-sm-2">Commentaire sur le candidat la candidature</label>
+            <label ng-if="user.idrang ==4" class="col-sm-offset-1 col-sm-2">Commentaire sur le candidat la candidature</label>
             <div class="col-sm-7">
                 <textarea ng-if="user.idrang ==4" type="text" required ng-model="offreUtilisateur.commentaires_candidature" class="form-control" name = "commentaires_candidature" rows="10" cols="150"><br></textarea>
                 <div ng-if="user.idrang ==4" ng-if="detailCandidatForm.commentaires_candidature.$dirty" ng-messages="offreForm.active.$error">

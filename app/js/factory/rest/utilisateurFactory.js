@@ -57,6 +57,22 @@ PCIE.factory("utilisateurFactory", function(RestService, $q) {
                 deffered.resolve();
             });
             return deffered.promise;
+        },
+
+        offreUtilisateurExist: function (idUtilisateur,idOffre) {
+            var deffered = $q.defer();
+            rest.all("offre/exist").get(idUtilisateur + "/" + idOffre).then(function (data) {
+                deffered.resolve(data);
+            });
+            return deffered.promise;
+        },
+
+        rechercherOffresNonPostulees: function (idUtilisateur) {
+            var deffered = $q.defer();
+            rest.all("offre/nonPostulees").get(idUtilisateur).then(function (data) {
+                deffered.resolve(data.plain());
+            });
+            return deffered.promise;
         }
     }
 })

@@ -137,6 +137,7 @@ exports.updateOffre = function (req, res) {
             lieu : input.lieu ,
             zoneDeDeplacement : input.zoneDeDeplacement,
             salaire : input.salaire,
+            salaire_actuel : input.salaire_actuel,
             experience : input.experience,
             suivi : input.suivi,
             description : input.description,

@@ -39,7 +39,7 @@
         </div>
     </div>
 </section>
-<section id="offres" ng-controller="offreCtrl" ng-init="rechercherOffres()">
+<section id="offres" ng-controller="utilisateurCtrl" ng-init="rechercherOffresNonPostulees()">
     <br>
     <br>
     <h1>Liste des offres</h1>
@@ -53,7 +53,7 @@
                     <th>Experience</th>
                     <th></th>
                 </tr>
-                <tr ng-repeat="offre in offres">
+                <tr ng-repeat="offre in offresNonPostulees">
                     <td ng-show="offre.active == 1">{{offre.idOffre}}</td>
                     <td ng-show="offre.active == 1">{{offre.titre}}</td>
                     <td ng-show="offre.active == 1">{{offre.lieu}}</td>
