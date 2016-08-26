@@ -13,6 +13,7 @@ var bcrypt = require('bcrypt-nodejs');
 var bodyParser = require('body-parser');
 var multiparty = require('connect-multiparty');
 var nodemailer = require("nodemailer");
+var fs = require("fs");
 
 var secret = 'n8jTwiRYBtJF25Wpk7X1fRvtxDrKs8P5lXP16DqytRwa0Pfa6omupI5YWgGjF3kUeP4F08LeklnwCQGoDMouLZcija8aRZaMEBQdrDSjRp9OGnVrfrZqosHE';
 
@@ -30,6 +31,8 @@ var multipartyMiddleware = multiparty();
 
 var app = express();
 
+app.use('/api', expressJwt({secret: secret}));
+
 var connection = require('express-myconnection');
 var mysql = require('mysql');
 
@@ -37,11 +40,14 @@ app.use(multiparty({
     uploadDir: './files'
 }));
 
+
+var content = JSON.parse(fs.readFileSync("mail.json"));
+
 var smtpTransport = nodemailer.createTransport("SMTP",{
-    service: "Gmail",
+    service: content.service,
     auth: {
-        user: "eva.saint.martin.pcie@gmail.com",
-        pass: "Pcie1234+"
+        user: content.auth.user,
+        pass: content.auth.pass
     }
 });
 
@@ -104,44 +110,48 @@ app.get('/', function(req, res) {
     res.render('/app/index.html');
 });
 
-app.get('/utilisateur', utilisateurs.selectAll);
-app.get('/utilisateur/offres/:id', utilisateurs.selectOffresFromUtilisateur);
-app.post('/utilisateur/add', utilisateurs.insertUtilisateur);
-app.post('/utilisateur/update/:id', utilisateurs.updateUtilisateur);
-app.get('/utilisateur/offre/exist/:idUtilisateur/:idOffre', utilisateurs.offreUtilisateurExist);
-app.get('/utilisateur/offre/nonPostulees/:idUtilisateur', utilisateurs.offresNonPostulees);
-app.post('/utilisateur/candidat/update/:idUtilisateur', utilisateurs.mettreAJourCommentaireCandidat);
-app.post('/utilisateur/offre/update/:idUtilisateur/:idOffre', utilisateurs.mettreAJourOffreUtilisateur);
-app.post('/utilisateur/offre/add/:idUtilisateur/:idOffre', utilisateurs.enregistrerOffreUtilisateur);
-app.post('/utilisateur/candidatureSpontanee', utilisateurs.enregistrerCandidatureSpontanee);
-app.get('/utilisateur/delete/:id', utilisateurs.deleteUtilisateur);
-app.get('/utilisateur/:id', utilisateurs.selectByIdUtilisateur);
+
 app.get('/offre', offres.selectAll);
-app.get('/offre/utilisateurs/:id', offres.selectUtilisateursFromOffre);
-app.get('/offre/competences/:id', offres.selectCompetencesFromOffre);
-app.post('/Offre/add', offres.insertOffre);
-app.post('/Offre/update/:id', offres.updateOffre);
-app.get('/Offre/activer/:id', offres.activerOffre);
-app.get('/Offre/desactiver/:id', offres.desactiverOffre);
-app.get('/Offre/delete/:id', offres.deleteOffre);
-app.get('/Offre/:id', offres.selectByIdOffre);
-app.get('/competence', competences.selectAll);
-app.post('/Competence/add', competences.insertCompetence);
-app.post('/Competence/update/:id', competences.updateCompetence);
-app.get('/Competence/activer/:id', competences.activerCompetence);
-app.get('/Competence/desactiver/:id', competences.desactiverCompetence);
-app.get('/Competence/delete/:id', competences.deleteCompetence);
-app.get('/Competence/offre/delete/:id', competences.deleteCompetencesOffre);
-app.get('/Competence/:id', competences.selectByIdCompetence);
-app.get('/rang', rangs.selectAll);
-app.get('/UtilisateursRang/:id', rangs.selectUtilisateursFromRang);
-app.post('/Rang/add', rangs.insertRang);
-app.post('/Rang/update/:id', rangs.updateRang);
-app.get('/Rang/delete/:id', rangs.deleteRang);
-app.get('/Rang/:id', rangs.selectByIdRang);
-app.post('/upload', multipartyMiddleware, UserController.uploadFile);
-app.get('/download', multipartyMiddleware, UserController.downloadFile);
-app.get('/send',function(req,res){
+app.get('/utilisateurByMail/:mail', utilisateurs.selectByMail);
+app.get('/savePasswordUtilisateur/:password/:idUtilisateur', utilisateurs.savePassword);
+app.get('/api/utilisateur', utilisateurs.selectAll);
+app.get('/api/utilisateur/offres/:id', utilisateurs.selectOffresFromUtilisateur);
+app.post('/api/utilisateur/add', utilisateurs.insertUtilisateur);
+app.post('/api/utilisateur/update/:id', utilisateurs.updateUtilisateur);
+app.get('/api/utilisateur/offre/exist/:idUtilisateur/:idOffre', utilisateurs.offreUtilisateurExist);
+app.get('/api/utilisateur/offre/nonPostulees/:idUtilisateur', utilisateurs.offresNonPostulees);
+app.post('/api/utilisateur/candidat/update/:idUtilisateur', utilisateurs.mettreAJourCommentaireCandidat);
+app.post('/api/utilisateur/offre/update/:idUtilisateur/:idOffre', utilisateurs.mettreAJourOffreUtilisateur);
+app.post('/api/utilisateur/offre/add/:idUtilisateur/:idOffre', utilisateurs.enregistrerOffreUtilisateur);
+app.post('/api/utilisateur/candidatureSpontanee', utilisateurs.enregistrerCandidatureSpontanee);
+app.get('/api/utilisateur/delete/:id', utilisateurs.deleteUtilisateur);
+app.get('/api/utilisateur/:id', utilisateurs.selectByIdUtilisateur);
+app.get('/api/offre', offres.selectAll);
+app.get('/api/offre/utilisateurs/:id', offres.selectUtilisateursFromOffre);
+app.get('/api/offre/competences/:id', offres.selectCompetencesFromOffre);
+app.post('/api/Offre/add', offres.insertOffre);
+app.post('/api/Offre/update/:id', offres.updateOffre);
+app.get('/api/Offre/activer/:id', offres.activerOffre);
+app.get('/api/Offre/desactiver/:id', offres.desactiverOffre);
+app.get('/api/Offre/delete/:id', offres.deleteOffre);
+app.get('/api/Offre/:id', offres.selectByIdOffre);
+app.get('/api/competence', competences.selectAll);
+app.post('/api/Competence/add', competences.insertCompetence);
+app.post('/api/Competence/update/:id', competences.updateCompetence);
+app.get('/api/Competence/activer/:id', competences.activerCompetence);
+app.get('/api/Competence/desactiver/:id', competences.desactiverCompetence);
+app.get('/api/Competence/delete/:id', competences.deleteCompetence);
+app.get('/api/Competence/offre/delete/:id', competences.deleteCompetencesOffre);
+app.get('/api/Competence/:id', competences.selectByIdCompetence);
+app.get('/api/rang', rangs.selectAll);
+app.get('/api/UtilisateursRang/:id', rangs.selectUtilisateursFromRang);
+app.post('/api/Rang/add', rangs.insertRang);
+app.post('/api/Rang/update/:id', rangs.updateRang);
+app.get('/api/Rang/delete/:id', rangs.deleteRang);
+app.get('/api/Rang/:id', rangs.selectByIdRang);
+app.post('/api/upload', multipartyMiddleware, UserController.uploadFile);
+app.get('/api/download', multipartyMiddleware, UserController.downloadFile);
+app.get('/api/send',function(req,res){
 
     if(req.query.RH == "1"){
 
@@ -191,7 +201,27 @@ app.get('/send',function(req,res){
         }
     });
 });
+app.get('/sendNewPassword',function(req,res){
 
+
+    var mailOptions= {
+        to: req.query.to,
+        subject: req.query.subject,
+        text: req.query.text
+    }
+
+    console.log(mailOptions);
+
+    smtpTransport.sendMail(mailOptions, function(error, response){
+        if(error){
+            console.log(error);
+            res.end("error");
+        }else{
+            console.log("Message sent: " + response.message);
+            res.end("sent");
+        }
+    });
+});
 
 app.get('/me', function (req, res) {
     res.json({

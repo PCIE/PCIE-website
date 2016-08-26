@@ -2,7 +2,7 @@
  * Created by P10-PCIE-MAF on 19/08/2016.
  */
 PCIE.factory("competenceFactory", function( RestService, $q) {
-    var rest = RestService.create('competence');
+    var rest = RestService.create('/api/competence');
     return {
 
         enregistrerCompetence: function (competence) {

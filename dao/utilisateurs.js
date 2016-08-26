@@ -50,13 +50,66 @@ exports.selectByIdUtilisateur = function (req, res) {
 
             console.log("utilisateur", rows);
 
-            res.json(rows);
+            res.json(rows[0]);
 
         });
 
         //console.log(query.sql);
     });
 
+};
+
+exports.selectByMail = function (req, res) {
+
+    var mail = req.params.mail;
+    console.log(mail);
+
+    req.getConnection(function (err, connection) {
+
+
+        var query = connection.query("SELECT * FROM utilisateur WHERE mail=?", [mail], function (err, rows) {
+
+            if (err)
+                console.log("Error Selecting : %s ", err);
+
+            console.log("utilisateur", rows);
+
+            res.json(rows[0]);
+
+        });
+
+        //console.log(query.sql);
+    });
+
+};
+
+exports.savePassword = function (req, res) {
+
+    var password = req.params.password;
+    var idUtilisateur = req.params.idUtilisateur;
+
+    console.log(password);
+    console.log(idUtilisateur);
+
+    var passhashed = null;
+    bcrypt.hash(password, bcrypt.genSaltSync(8), null, function (err, hash) {
+        passhashed = hash;
+        console.log(hash);
+    });
+
+    console.log(passhashed);
+
+    req.getConnection(function (err, connection) {
+
+        var query = connection.query("UPDATE utilisateur SET hash=? WHERE idUtilisateur=?",[passhashed,idUtilisateur], function (err, rows) {
+
+            if (err)
+                console.log("Error Selecting : %s ", err);
+
+            res.redirect('/utilisateur');
+
+        });
+    });
 };
 
 exports.insertUtilisateur = function (req, res) {
@@ -68,21 +121,6 @@ exports.insertUtilisateur = function (req, res) {
     bcrypt.hash(input.password, bcrypt.genSaltSync(8), null, function (err, hash) {
         passhashed = hash;
     });
-
-
-    /*app.bcrypt.hash(req.body.password, bcrypt.genSaltSync(8), null, function (err, hash) {
-
-     // valider et securiser les infos reçues
-
-     /*db.none("insert into utilisateur(nom, prenom, email, hash, role) values(${nom}, ${prenom}, ${email}, ${hash}, ${role})", utilisateur)
-
-     .then(function (data) {
-     res.send('ok');
-     })
-     .catch(function (error) {
-     res.send(error);
-     });
-     */
 
     req.getConnection(function (err, connection) {
 
@@ -120,6 +158,11 @@ exports.updateUtilisateur = function (req, res) {
     var input = JSON.parse(JSON.stringify(req.body));
     var id = req.params.id;
 
+    var passhashed = null;
+    bcrypt.hash(input.password, bcrypt.genSaltSync(8), null, function (err, hash) {
+        passhashed = hash;
+    });
+
     req.getConnection(function (err, connection) {
 
         var data = {
@@ -132,7 +175,7 @@ exports.updateUtilisateur = function (req, res) {
             telephone_fixe: input.telephone_fixe,
             telephone_portable: input.telephone_portable,
             mail: input.mail,
-            hash: input.hash,
+            hash: passhashed,
             idrang: input.idrang
 
         };

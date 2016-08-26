@@ -69,4 +69,14 @@ PCIE.service('utilisateurService', function(utilisateurFactory) {
         utilisateurFactory.enregistrerCandidatureSpontanee(utilisateur);
     };
 
+    this.rechercherUtilisateurByMail = function(mail){
+        return utilisateurFactory.rechercherUtilisateurByMail(mail).then(function(data){
+            return data;
+        });
+    };
+
+    this.enregistrerPasswordUtilisateur = function(password,idUtilisateur){
+        utilisateurFactory.enregistrerPasswordUtilisateur(password,idUtilisateur);
+    };
+
 });

@@ -37,8 +37,9 @@ exports.authorize = function (req, res) {
                     profile.permissions = permissions;
                     console.log(secret);
                     token = jwt.sign(profile, secret, {expiresIn: 120 * 60});
-                    user.token = token;
-                    res.json({user: user});
+                    user[0].token = token;
+                    console.log(user[0]);
+                    res.json({user: user[0]});
                 } else {
                     res.status(401).send('Wrong user or password');
                 }

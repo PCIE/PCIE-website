@@ -1,7 +1,8 @@
-PCIE.config(function ($stateProvider, $urlRouterProvider) {
+PCIE.config(function ($stateProvider, $urlRouterProvider, $httpProvider) {
 
     $urlRouterProvider.otherwise('/');
 
+    $httpProvider.interceptors.push('authInterceptor');
 
     $stateProvider
         .state('root', {
@@ -51,6 +52,7 @@ PCIE.config(function ($stateProvider, $urlRouterProvider) {
                 }
             }
         })
+
         .state('root.carriere.detailOffre', {
             url: '/detailOffre/:idOffre',
             views: {
@@ -92,7 +94,7 @@ PCIE.config(function ($stateProvider, $urlRouterProvider) {
         })
 
         .state('root.carriere.formulaireCandidat', {
-            url: '/formulaireCandidat',
+            url: '/formulaireCandidat/:idUtilisateur?',
             views: {
                 'container@': {
                     templateUrl: '../views/carriere/formulaireCandidat.html',
@@ -137,6 +139,16 @@ PCIE.config(function ($stateProvider, $urlRouterProvider) {
                 'container@': {
                     templateUrl: '../views/carriere/mentionLegales.html',
                     controller: 'offreCtrl'
+                }
+            }
+        })
+
+        .state('root.carriere.passforgot', {
+            url: '/passforgot',
+            views: {
+                'container@': {
+                    templateUrl: '../views/carriere/passforgot.html',
+                    controller: 'utilisateurCtrl'
                 }
             }
         })

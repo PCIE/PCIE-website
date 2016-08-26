@@ -13,6 +13,9 @@
         <div class="col-sm-4">
             <h4><p>{{user.nom}} {{user.prenom}}</p></h4>
         </div>
+        <div class="col-sm-3">
+            <a  style="width:100%" ui-sref="root.carriere.formulaireCandidat({idUtilisateur:user.idUtilisateur})"  class="btn btn-primary" >Modifier ses informations</a>
+        </div>
     </div>
     </div>
     <div class="row">
@@ -33,7 +36,7 @@
                     <td ng-show="offreUtilisateur.active == 1">{{offreUtilisateur.titre}}</td>
                     <td ng-show="offreUtilisateur.active == 1">{{offreUtilisateur.lieu}}</td>
                     <td ng-show="offreUtilisateur.active == 1">{{offreUtilisateur.experience}}</td>
-                    <td ng-show="offreUtilisateur.active == 1"><a ui-sref="root.carriere.formulaireCandidatOffre({idUtilisateur:offreUtilisateur.idUtilisateur,idOffre:offreUtilisateur.idOffre})"  class="btn btn-primary" >Modifier sa candidature</a></td>
+                    <td ng-show="offreUtilisateur.active == 1"><a  style="width:100%" ui-sref="root.carriere.formulaireCandidatOffre({idUtilisateur:offreUtilisateur.idUtilisateur,idOffre:offreUtilisateur.idOffre})"  class="btn btn-primary" >Modifier sa candidature</a></td>
                 </tr>
             </table>
         </div>
@@ -58,7 +61,7 @@
                     <td ng-show="offre.active == 1">{{offre.titre}}</td>
                     <td ng-show="offre.active == 1">{{offre.lieu}}</td>
                     <td ng-show="offre.active == 1">{{offre.experience}}</td>
-                    <td ng-show="offre.active == 1"><a ui-sref="root.carriere.detailOffre({idOffre:offre.idOffre})" class="btn btn-primary" >voir</a></td>
+                    <td ng-show="offre.active == 1"><a  style="width:100%" ui-sref="root.carriere.detailOffre({idOffre:offre.idOffre})" class="btn btn-primary" >voir</a></td>
                 </tr>
             </table>
         </div>

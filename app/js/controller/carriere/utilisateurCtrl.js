@@ -15,6 +15,7 @@ PCIE.controller('utilisateurCtrl', function($q, $stateParams, $scope, $state, se
     $scope.LM;
     $scope.salaire;
     $scope.preavis;
+    $scope.confirmPassword;
 
     $scope.CVUploaded = false;
     $scope.LMUploaded = false;
@@ -24,6 +25,9 @@ PCIE.controller('utilisateurCtrl', function($q, $stateParams, $scope, $state, se
 
     var deferredCV = $q.defer();
     var deferredLM = $q.defer();
+
+    $scope.init = function(){
+    };
 
     $scope.initFormulaireCandidatOffre = function(){
 
@@ -58,8 +62,6 @@ PCIE.controller('utilisateurCtrl', function($q, $stateParams, $scope, $state, se
             $scope.newOffreUtilisateur = data.numRows;
             console.log($scope.newOffreUtilisateur);
         })
-        $scope.offreUtilisateur.curriculum_vitae = $scope.CV.name;
-        $scope.offreUtilisateur.lettre_de_motivation = $scope.LM.name;
 
         if($scope.newOffreUtilisateur==1){
             console.log("mettreAJour");
@@ -70,22 +72,39 @@ PCIE.controller('utilisateurCtrl', function($q, $stateParams, $scope, $state, se
             utilisateurService.enregistrerOffreUtilisateur($stateParams.idUtilisateur,$stateParams.idOffre,$scope.offreUtilisateur);
         }
 
-        if ($scope.utilisateurOffreForm.CV.$valid && $scope.CV && $scope.utilisateurOffreForm.LM.$valid && $scope.LM) {
+        if ($scope.utilisateurOffreForm.CV.$valid && $scope.CV) {
+
+            console.log($scope.CV);
+            console.log($scope.LM);
+
+            $scope.offreUtilisateur.curriculum_vitae = $scope.CV.name;
+            if($scope.LM){
+                $scope.offreUtilisateur.lettre_de_motivation = $scope.LM.name;
+            }
+
             $scope.uploadCV($scope.CV).then(function(){
                 console.log("CV upload successed");
-                $scope.uploadLM($scope.LM).then(function(){
-                        console.log("LM upload successed");
-                        $scope.rechercherOffreUtilisateur();
-                        sendMailCandidat();
-                        console.log("mail candidat envoyé");
-                        sendMailRHoffre();
-                        console.log("mail RH envoyé");
-                    },function(){
-                        console.log("LM upload failed");
-                    },function(){
-                        console.log("LM upload in progress");
-                    }
-                )
+                if($scope.LM){
+                    $scope.uploadLM($scope.LM).then(function(){
+                            console.log("LM upload successed");
+                            $scope.rechercherOffreUtilisateur();
+                            sendMailCandidat();
+                            console.log("mail candidat envoyé");
+                            sendMailRHoffre();
+                            console.log("mail RH envoyé");
+                        },function(){
+                            console.log("LM upload failed");
+                        },function(){
+                            console.log("LM upload in progress");
+                        }
+                    )
+                }else{
+                    console.log("LM upload successed");
+                    $scope.rechercherOffreUtilisateur();
+                    sendMailCandidat();
+                    console.log("mail candidat envoyé");
+                    sendMailRHoffre();
+                }
             },function(){
                 console.log("CV upload failed");
             },function(){
@@ -93,8 +112,7 @@ PCIE.controller('utilisateurCtrl', function($q, $stateParams, $scope, $state, se
             })
         }
 
-        console.log($scope.CV);
-        console.log($scope.LM);
+
 
         $state.go('root.carriere.detailCandidatOffre',
             {idUtilisateur : $stateParams.idUtilisateur,
@@ -104,30 +122,41 @@ PCIE.controller('utilisateurCtrl', function($q, $stateParams, $scope, $state, se
 
     $scope.submitCandidatureSpontanee = function() {
 
-        console.log($scope.CV);
-        console.log($scope.LM);
-
         utilisateurService.enregistrerCandidatureSpontanee($scope.utilisateur);
 
-        $scope.utilisateur.curriculum_vitae = $scope.CV.name;
-        $scope.utilisateur.lettre_de_motivation = $scope.LM.name;
+        if ($scope.candidatureSpontanee.CV.$valid && $scope.CV) {
 
-        if ($scope.candidatureSpontanee.CV.$valid && $scope.CV && $scope.candidatureSpontanee.LM.$valid && $scope.LM) {
+            console.log($scope.CV);
+            console.log($scope.LM);
+
+            $scope.utilisateur.curriculum_vitae = $scope.CV.name;
+            if($scope.LM){
+                $scope.utilisateur.lettre_de_motivation = $scope.LM.name;
+            }
+
             $scope.uploadCV($scope.CV).then(function(){
                 console.log("CV upload successed");
-                $scope.uploadLM($scope.LM).then(function(){
-                        console.log("LM upload successed");
-                        $scope.rechercherOffreUtilisateur();
-                        sendMailCandidat();
+                if($scope.LM){
+                    $scope.uploadLM($scope.LM).then(function(){
+                            console.log("LM upload successed");
+                            $scope.rechercherOffreUtilisateur();
+                            sendMailCandidat();
                             console.log("mail candidat envoyé");
-                        sendMailRHSpontanee();
+                            sendMailRHSpontanee();
                             console.log("mail RH envoyé");
-                    },function(){
+                        },function(){
                             console.log("LM upload failed");
                         },function(){
                             console.log("LM upload in progress");
                         }
                     )
+                }else{
+                    $scope.rechercherOffreUtilisateur();
+                    sendMailCandidat();
+                    console.log("mail candidat envoyé");
+                    sendMailRHSpontanee();
+                    console.log("mail RH envoyé");
+                }
             },function(){
                 console.log("CV upload failed");
             },function(){
@@ -141,7 +170,7 @@ PCIE.controller('utilisateurCtrl', function($q, $stateParams, $scope, $state, se
         var subjectCandidat = "Réponse suite à votre candidature";
         var messageCandidat = "Bonjour,\n Nous vous remercions de l'intérêt que vous portez à notre entreprise, nous en sommes même très honorés!\n Conscient que vous avez très envie que nous vous répondions, nous profitons de ce mail automatique pour le faire et vous dire merci!";
 
-        $http({method:'GET', url:'/send/', params: {to: $scope.offreUtilisateur.mail,subject: subjectCandidat, text: messageCandidat, RH : '2'} });
+        $http({method:'GET', url:'/api/send/', params: {to: $scope.offreUtilisateur.mail,subject: subjectCandidat, text: messageCandidat, RH : '2'} });
     }
 
     function sendMailRHoffre(){
@@ -162,14 +191,20 @@ PCIE.controller('utilisateurCtrl', function($q, $stateParams, $scope, $state, se
             "salaire souhaité    : " + $scope.offreUtilisateur.salaire + "\n" +
             "préavis             :   " + $scope.offreUtilisateur.preavis;
 
-        $http({method:'GET', url:'/send/', params: {
-            to: "julien.dalbin@gmail.com",
-            subject: subjectRH,
-            text: messageRH,
-            curriculum_vitae: $scope.CV.name,
-            lettre_de_motivation: $scope.LM.name,
-            RH : '1'
+        if($scope.LM){
+            var LM = $scope.LM.name;
+        }else{
+            var LM = "pas de lettre de motivation";
         }
+
+        $http({method:'GET', url:'/api/send/', params: {
+                to: "julien.dalbin@gmail.com",
+                subject: subjectRH,
+                text: messageRH,
+                curriculum_vitae: $scope.CV.name,
+                lettre_de_motivation: LM,
+                RH : '1'
+            }
         });
     }
 
@@ -191,46 +226,61 @@ PCIE.controller('utilisateurCtrl', function($q, $stateParams, $scope, $state, se
             "salaire souhaité    : " + $scope.utilisateur.salaire + "\n" +
             "préavis             :   " + $scope.utilisateur.preavis;
 
-        $http({method:'GET', url:'/send/', params: {
-            to: "julien.dalbin@gmail.com",
-            subject: subjectRH,
-            text: messageRH,
-            curriculum_vitae: $scope.CV.name,
-            lettre_de_motivation: $scope.LM.name,
-            RH : '1'
+        if($scope.LM){
+            var LM = $scope.LM.name;
+        }else{
+            var LM = "pas de lettre de motivation";
         }
+
+        $http({method:'GET', url:'/api/send/', params: {
+                to: "julien.dalbin@gmail.com",
+                subject: subjectRH,
+                text: messageRH,
+                curriculum_vitae: $scope.CV.name,
+                lettre_de_motivation: LM,
+                RH : '1'
+            }
         });
     }
 
     $scope.downloadCV = function(){
 
-        $http({method:'GET', url:'/download/', params: {name: $scope.offreUtilisateur.curriculum_vitae}}).then(function(succ,err) {
+        $http({method:'GET', url:'/api/download/', params: {name: $scope.offreUtilisateur.curriculum_vitae}}).then(function(succ,err) {
 
-            console.log(succ);
-            console.log(succ.data);
-            //var blob = new Blob([succ.data]);
-            var blob = new Blob([succ.data], {type: "application/pdf"});
+            //console.log(succ);
+            //console.log(succ.data);
+            var extensions = $scope.offreUtilisateur.curriculum_vitae.split(".");
+            var extension = extensions[extensions.length-1];
+            console.log(extensions);
+            console.log(extension);
+            if(extension == 'pdf'){
+                var blob = new Blob([succ.data], {type: "application/pdf"});
+            }else if(extension == 'doc'){
+                var blob = new Blob([succ.data], {type: "application/msword"});
+            }else if(extension == 'docx'){
+                var blob = new Blob([succ.data], {type: "application/vnd.openxmlformats-officedocument.wordprocessingml.document"});
+            }
   
             FileSaver.saveAs(blob, $scope.offreUtilisateur.curriculum_vitae);
         });
-        /*success(function(data, status, headers, config) {
-            console.log(data);
-            var element = angular.element('<a/>');
-            element.attr({
-                href: 'data:attachment/csv;charset=utf-8,' + encodeURI(data),
-                target: '_blank',
-                download: $scope.offreUtilisateur.curriculum_vitae
-            })[0].click();
-        }).
-        error(function(data, status, headers, config) {
-            console.log(data);
-        });*/
     };
 
     $scope.downloadLM = function(){
 
-        $http({method:'GET', url:'/download/', params: {name: $scope.offreUtilisateur.lettre_de_motivation}}).then(function(succ,err) {
-            var blob = new Blob([succ.data], {type: "application/pdf"});
+        $http({method:'GET', url:'/api/download/', params: {name: $scope.offreUtilisateur.lettre_de_motivation}}).then(function(succ,err) {
+
+            var extensions = $scope.offreUtilisateur.lettre_de_motivation.split(".");
+            var extension = extensions[extensions.length-1];
+            console.log(extensions);
+            console.log(extension);
+            if(extension == 'pdf'){
+                var blob = new Blob([succ.data], {type: "application/pdf"});
+            }else if(extension == 'doc'){
+                var blob = new Blob([succ.data], {type: "application/msword"});
+            }else if(extension == 'docx'){
+                var blob = new Blob([succ.data], {type: "application/vnd.openxmlformats-officedocument.wordprocessingml.document"});
+            }
+
             FileSaver.saveAs(blob, $scope.offreUtilisateur.lettre_de_motivation);
         });
 
@@ -238,7 +288,7 @@ PCIE.controller('utilisateurCtrl', function($q, $stateParams, $scope, $state, se
     $scope.uploadCV = function (file) {
 
         return Upload.upload({
-            url: '/upload/',
+            url: '/api/upload/',
             data: {file: file, 'username': $scope.username, 'idUtilisateur': $stateParams.idUtilisateur, 'idOffre' : $stateParams.idOffre,'ref' : 'CV'},
         }).then(function (resp) {
             console.log('Success ' + resp.config.data.file.name + 'uploaded. Response: ' + resp.data);
@@ -259,7 +309,7 @@ PCIE.controller('utilisateurCtrl', function($q, $stateParams, $scope, $state, se
     $scope.uploadLM = function (file) {
 
         return Upload.upload({
-            url: '/upload/',
+            url: '/api/upload/',
             data: {file: file, 'username': $scope.username, 'idUtilisateur': $stateParams.idUtilisateur, 'idOffre' : $stateParams.idOffre,'ref' : 'LM'},
         }).then(function (resp) {
             console.log('Success ' + resp.config.data.file.name + 'uploaded. Response: ' + resp.data);
@@ -285,6 +335,10 @@ PCIE.controller('utilisateurCtrl', function($q, $stateParams, $scope, $state, se
 
     $scope.enregistrerUtilisateur = function(){
         utilisateurService.enregistrerUtilisateur($scope.utilisateur);
+    };
+
+    $scope.mettreAJourUtilisateur = function(){
+        utilisateurService.mettreAJourUtilisateur($scope.user.idUtilisateur,$scope.utilisateur);
     };
 
     $scope.rechercherOffresUtilisateur = function(){
@@ -314,6 +368,12 @@ PCIE.controller('utilisateurCtrl', function($q, $stateParams, $scope, $state, se
         utilisateurService.rechercherOffresNonPostulees($scope.user.idUtilisateur).then(function(data){
             $scope.offresNonPostulees = data;
             console.log($scope.offresNonPostulees);
+        });
+    }
+
+    $scope.rechercherUtilisateur = function(idUtilisateur){
+        utilisateurService.rechercherUtilisateur(idUtilisateur).then(function(data){
+            $scope.utilisateur = data;
         });
     }
 

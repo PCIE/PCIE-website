@@ -2,109 +2,112 @@
     <div class="container" >
         <div class="row">
             <div class="col-lg-6 text-center">
-                <h4>Candidater</h4>
+                <h1>Candidater</h1>
                 <form name="candidatureSpontanee" class="form-horizontal">
                     <div class="form-group">
-                        <label class="col-sm-offset-1 col-sm-2">Nom</label>
-                        <div class="col-sm-5">
+                        <label class="col-sm-offset-1 col-sm-3">Nom (*)</label>
+                        <div class="col-sm-8">
                             <input type="text" class="form-control" required ng-model="utilisateur.nom" name = "nom" ><br>
                             <div ng-if="candidatureSpontanee.nom.$dirty" ng-messages="candidatureSpontanee.nom.$error">
-                                <div ng-message="required">Veuillez renseigner ce champ!</div>
+                                <div class="alert" ng-message="required">Veuillez renseigner ce champ!</div>
                             </div><br>
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="col-sm-offset-1 col-sm-2">Prenom</label>
-                        <div class="col-sm-5">
+                        <label class="col-sm-offset-1 col-sm-3">Prenom (*)</label>
+                        <div class="col-sm-8">
                             <input type="text" class="form-control" required ng-model="utilisateur.prenom" name = "prenom" ><br>
                             <div ng-if="candidatureSpontanee.prenom.$dirty" ng-messages="candidatureSpontanee.prenom.$error">
-                                <div ng-message="required">Veuillez renseigner ce champ!</div>
+                                <div class="alert" ng-message="required">Veuillez renseigner ce champ!</div>
                             </div><br>
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="col-sm-offset-1 col-sm-2">Voie</label>
-                        <div class="col-sm-5">
+                        <label class="col-sm-offset-1 col-sm-3">Voie</label>
+                        <div class="col-sm-8">
                             <input type="text" class="form-control" required ng-model="utilisateur.voie" name = "voie" ><br>
                             <div ng-if="candidatureSpontanee.voie.$dirty" ng-messages="candidatureSpontanee.voie.$error">
-                                <div ng-message="required">Veuillez renseigner ce champ!</div>
+                                <div class="alert" ng-message="required">Veuillez renseigner ce champ!</div>
                             </div><br>
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="col-sm-offset-1 col-sm-2">Code Postal</label>
-                        <div class="col-sm-5">
+                        <label class="col-sm-offset-1 col-sm-3">Code Postal</label>
+                        <div class="col-sm-8">
                             <input type="text" class="form-control" required ng-model="utilisateur.code_postal" ng-pattern="/[\d]{5}/" name = "code_postal"><br>
                             <div ng-if="candidatureSpontanee.code_postal.$dirty" ng-messages="candidatureSpontanee.code_postal.$error">
-                                <div ng-message="pattern">Veuillez entrer un code postal valide!</div>
-                                <div ng-message="required">Veuillez renseigner ce champ!</div>
+                                <div class="alert" ng-message="pattern">Veuillez entrer un code postal valide!</div>
+                                <div class="alert" ng-message="required">Veuillez renseigner ce champ!</div>
                             </div><br>
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="col-sm-offset-1 col-sm-2">Ville</label>
-                        <div class="col-sm-5">
+                        <label class="col-sm-offset-1 col-sm-3">Ville</label>
+                        <div class="col-sm-8">
                             <input type="text" class="form-control" required ng-model="utilisateur.ville" name = "ville" ><br>
                             <div ng-if="candidatureSpontanee.ville.$dirty" ng-messages="candidatureSpontanee.ville.$error">
-                                <div ng-message="required">Veuillez renseigner ce champ!</div>
+                                <div class="alert" ng-message="required">Veuillez renseigner ce champ!</div>
                             </div><br>
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="col-sm-offset-1 col-sm-2">Telephone Fixe</label>
-                        <div class="col-sm-5">
+                        <label class="col-sm-offset-1 col-sm-3">Telephone Fixe</label>
+                        <div class="col-sm-8">
                             <input type="text" class="form-control" required ng-model="utilisateur.telephone_fixe" ng-pattern="/[\d]{10}/" name = "telephone_fixe"><br>
                             <div ng-if="candidatureSpontanee.telephone_fixe.$dirty" ng-messages="candidatureSpontanee.telephone_fixe.$error">
-                                <div ng-message="pattern">Veuillez entrer un téléphone fixe valide!</div>
-                                <div ng-message="required">Veuillez renseigner ce champ!</div>
+                                <div class="alert" ng-message="pattern">Veuillez entrer un téléphone fixe valide!</div>
+                                <div class="alert" ng-message="required">Veuillez renseigner ce champ!</div>
                             </div><br>
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="col-sm-offset-1 col-sm-2">Telephone Portable</label>
-                        <div class="col-sm-5">
+                        <label class="col-sm-offset-1 col-sm-3">Telephone Portable (*)</label>
+                        <div class="col-sm-8">
                             <input type="text" class="form-control" required ng-model="utilisateur.telephone_portable" ng-pattern="/[\d]{10}/" name = "telephone_portable"><br>
                             <div ng-if="candidatureSpontanee.telephone_portable.$dirty" ng-messages="candidatureSpontanee.telephone_portable.$error">
-                                <div ng-message="pattern">Veuillez entrer un téléphone portable valide!</div>
-                                <div ng-message="required">Veuillez renseigner ce champ!</div>
+                                <div class="alert" ng-message="pattern">Veuillez entrer un téléphone portable valide!</div>
+                                <div class="alert" ng-message="required">Veuillez renseigner ce champ!</div>
                             </div><br>
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="col-sm-offset-1 col-sm-2">Email</label>
-                        <div class="col-sm-5">
+                        <label class="col-sm-offset-1 col-sm-3">Email (*)</label>
+                        <div class="col-sm-8">
                             <input type="text" class="form-control" required ng-model="utilisateur.mail" ng-pattern="/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/" name = "mail"><br>
                             <div ng-if="candidatureSpontanee.mail.$dirty" ng-messages="candidatureSpontanee.mail.$error">
-                                <div ng-message="pattern">Veuillez entrer un email valide!</div>
-                                <div ng-message="required">Veuillez renseigner ce champ!</div>
+                                <div class="alert" ng-message="pattern">Veuillez entrer un email valide!</div>
+                                <div class="alert" ng-message="required">Veuillez renseigner ce champ!</div>
                             </div><br>
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="col-sm-offset-1 col-sm-2">Mot de passe</label>
-                        <div class="col-sm-5">
-                            <input type="password" class="form-control" required ng-model="utilisateur.password" name = "password1"><br>
-                            <input type="password" class="form-control" required ng-pattern="/^{{utilisateur.password}}$/" name = "password2"><br>
-                            <div ng-if="candidatureSpontanee.mail.$dirty" ng-messages="candidatureSpontanee.mail.$error">
-                                <div ng-message="required">Veuillez renseigner ce champ!</div>
-                                <div ng-message="pattern">Les mots de passe ne correspondent pas</div>
-                            </div><br>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="col-sm-offset-1 col-sm-3">Curriculum Vitae </label>
+                        <label class="col-sm-offset-1 col-sm-3">Mot de passe (*)</label>
                         <div class="col-sm-8">
-                            <button  ngf-select ng-model="CV" class="btn btn-primary" name="CV">Selectionner votre CV</button>
+                            <input type="password" class="form-control" required ng-model="utilisateur.password" name = "password1"><br>
+                            <input type="password" class="form-control" required ng-pattern="utilisateur.password" ng-model="utilisateur.confirmPassword" name = "confirmPassword">
+                            <div ng-show="utilisateurForm.confirmPassword.$error.pattern" class="form-group has-error">
+                                <label class="alert" class="control-label">Les mots de passe ne correspondent pas</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-offset-1 col-sm-3">Curriculum Vitae (*)  (.pdf, .doc, .docx)</label>
+                        <div class="col-sm-8">
+                            <button style="width:100%" ngf-select ngf-pattern="'.pdf,.doc,.docx'" ngf-max-size="5MB" ng-model="CV" class="btn btn-primary" name="CV">Selectionner votre CV</button>
                             <p ng-if = "!CV.name && CV.name!=''">{{utilisateur.curriculum_vitae}}</p>
                             <p ng-else>{{CV.name}}</p>
+                            <div class="alert" ng-show="candidatureSpontanee.CV.$error.pattern">Ce format n'est pas accepté</div>
+                            <div class="alert" ng-show="candidatureSpontanee.CV.$error.maxSize">La taille du fichier est limité à 5MB</div>
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="col-sm-offset-1 col-sm-3">Lettre de motivation </label>
+                        <label class="col-sm-offset-1 col-sm-3">Lettre de motivation  (.pdf, .doc, .docx)</label>
                         <div class="col-sm-8">
-                            <button  ngf-select ng-model="LM" class="btn btn-primary" name="LM">Selectionner votre lettre de motivation</button>
+                            <button style="width:100%" ngf-select ngf-pattern="'.pdf,.doc,.docx'" ngf-max-size="5MB" ng-model="LM" class="btn btn-primary" name="LM">Selectionner votre lettre de motivation</button>
                             <p ng-if = "!LM.name && LM.name!=''">{{utilisateur.lettre_de_motivation}}</p>
                             <p ng-else>{{LM.name}}</p>
+                            <div class="alert" ng-show="candidatureSpontanee.LM.$error.pattern">Ce format n'est pas accepté</div>
+                            <div class="alert" ng-show="candidatureSpontanee.LM.$error.maxSize">La taille du fichier est limité à 5MB</div>
                         </div>
                     </div>
                     <div class="form-group">
@@ -112,7 +115,7 @@
                         <div class="col-sm-8">
                             <input  type="text" class="form-control" required ng-model="utilisateur.salaire_actuel" name = "salaire_actuel" ><br>
                             <div ng-if="candidatureSpontanee.salaire_actuel.$dirty" ng-messages="candidatureSpontanee.salaire_actuel.$error">
-                                <div ng-message="required">Veuillez renseigner ce champ!</div>
+                                <div class="alert" ng-message="required">Veuillez renseigner ce champ!</div>
                             </div><br>
                         </div>
                     </div>
@@ -121,15 +124,15 @@
                         <div class="col-sm-8">
                             <input  type="text" class="form-control" required ng-model="utilisateur.salaire" name = "salaire" ><br>
                             <div ng-if="candidatureSpontanee.salaire.$dirty" ng-messages="candidatureSpontanee.salaire.$error">
-                                <div ng-message="required">Veuillez renseigner ce champ!</div>
+                                <div class="alert" ng-message="required">Veuillez renseigner ce champ!</div>
                             </div><br>
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="col-sm-offset-1 col-sm-3">Préavis</label>
+                        <label class="col-sm-offset-1 col-sm-3">Durée de préavis</label>
                         <div class="col-sm-8">
                             <select class="form-control" required ng-model="utilisateur.preavis" name = "preavis" ><br>
-                                <option value="immediate">Immediate</option>
+                                <option value="immediate">immediate</option>
                                 <option value="1mois">1 mois</option>
                                 <option value="2mois">2 mois</option>
                                 <option value="2mois">3 mois</option>
@@ -137,7 +140,10 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <div class="col-sm-offset-2 col-sm-10">
+                        <label class="col-sm-offset-4 col-sm-5"> (*): champs obligatoires</label>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-offset-2 col-sm-8">
                             <button type="submit"  class="btn btn-primary" ng-click="submitCandidatureSpontanee()">Candidater</button>
                         </div>
                     </div>

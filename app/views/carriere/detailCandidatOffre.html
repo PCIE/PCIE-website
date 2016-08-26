@@ -126,7 +126,7 @@
         <div class="form-group">
             <label ng-if="user.idrang ==4" class="col-sm-offset-2 col-sm-2">Commentaire sur le candidat</label>
             <div class="col-sm-7">
-                <textarea ng-if="user.idrang ==4" required ng-model="offreUtilisateur.commentaire_candidat" class="form-control" name = "commentaire_candidat" rows="10" cols="150"><br></textarea>
+                <textarea ng-if="user.idrang ==4" required ng-model="offreUtilisateur.commentaire_candidat" class="form-control" name = "commentaire_candidat" rows="10" cols="110"><br></textarea>
                 <div ng-if="user.idrang ==4" ng-if="detailCandidatForm.commentaire_candidat.$dirty" ng-messages="offreForm.active.$error">
                     <div ng-if="user.idrang ==4" ng-message="required">Veuillez renseigner ce champ!</div>
                 </div><br>

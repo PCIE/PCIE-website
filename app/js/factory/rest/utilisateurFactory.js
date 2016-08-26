@@ -2,11 +2,28 @@
  * Created by P10-PCIE-MAF on 01/08/2016.
  */
 PCIE.factory("utilisateurFactory", function(RestService, $q) {
-    var rest = RestService.create('utilisateur');
+    var rest = RestService.create('/');
     return {
+
+        enregistrerPasswordUtilisateur: function (password,idUtilisateur) {
+            var deffered = $q.defer();
+            rest.get("savePasswordUtilisateur/"+password+"/"+idUtilisateur).then(function () {
+                deffered.resolve();
+            });
+            return deffered.promise;
+        },
+
+        rechercherUtilisateurByMail: function (mail) {
+            var deffered = $q.defer();
+            rest.get("utilisateurByMail/"+mail).then(function (data) {
+                deffered.resolve(data);
+        });
+            return deffered.promise;
+        },
+
         rechercherUtilisateur: function (idUtilisateur) {
             var deffered = $q.defer();
-            rest.get(idUtilisateur).then(function (data) {
+            rest.get("api/utilisateur/"+idUtilisateur).then(function (data) {
                 deffered.resolve(data.plain());
             });
             return deffered.promise;
@@ -14,14 +31,14 @@ PCIE.factory("utilisateurFactory", function(RestService, $q) {
 
         enregistrerUtilisateur: function (utilisateur) {
             var deffered = $q.defer();
-            rest.all("add").post(utilisateur).then(function () {
+            rest.all("api/utilisateur/add").post(utilisateur).then(function () {
                 deffered.resolve();
             });
             return deffered.promise;
         },
         mettreAJourUtilisateur: function (idUtilisateur, data ) {
             var deffered = $q.defer();
-            rest.all("/update/" + idUtilisateur).post(data).then(function () {
+            rest.all("api/utilisateur/update/" + idUtilisateur).post(data).then(function () {
                 deffered.resolve();
             });
             return deffered.promise;
@@ -29,7 +46,7 @@ PCIE.factory("utilisateurFactory", function(RestService, $q) {
 
         rechercherOffresUtilisateur: function (idUtilisateur) {
             var deffered = $q.defer();
-            rest.all("offres").get(idUtilisateur).then(function (data) {
+            rest.all("api/utilisateur/offres").get(idUtilisateur).then(function (data) {
                 deffered.resolve(data.plain());
             });
             return deffered.promise;
@@ -37,7 +54,7 @@ PCIE.factory("utilisateurFactory", function(RestService, $q) {
 
         mettreAJourOffreUtilisateur: function (idUtilisateur, idOffre, data ) {
             var deffered = $q.defer();
-            rest.all("/offre/update/" + idUtilisateur + "/" + idOffre).post(data).then(function () {
+            rest.all("api/utilisateur/offre/update/" + idUtilisateur + "/" + idOffre).post(data).then(function () {
                 deffered.resolve();
             });
             return deffered.promise;
@@ -45,7 +62,7 @@ PCIE.factory("utilisateurFactory", function(RestService, $q) {
 
         mettreAJourCommentaireCandidat: function (idUtilisateur, data ) {
             var deffered = $q.defer();
-            rest.all("/candidat/update/" + idUtilisateur).post(data).then(function () {
+            rest.all("api/utilisateur/candidat/update/" + idUtilisateur).post(data).then(function () {
                 deffered.resolve();
             });
             return deffered.promise;
@@ -53,7 +70,7 @@ PCIE.factory("utilisateurFactory", function(RestService, $q) {
 
         enregistrerOffreUtilisateur: function (idUtilisateur,idOffre,data) {
             var deffered = $q.defer();
-            rest.all("/offre/add/" + idUtilisateur + "/" + idOffre).post(data).then(function () {
+            rest.all("api/utilisateur/offre/add/" + idUtilisateur + "/" + idOffre).post(data).then(function () {
                 deffered.resolve();
             });
             return deffered.promise;
@@ -61,7 +78,7 @@ PCIE.factory("utilisateurFactory", function(RestService, $q) {
 
         offreUtilisateurExist: function (idUtilisateur,idOffre) {
             var deffered = $q.defer();
-            rest.all("offre/exist").get(idUtilisateur + "/" + idOffre).then(function (data) {
+            rest.all("api/utilisateur/offre/exist").get(idUtilisateur + "/" + idOffre).then(function (data) {
                 deffered.resolve(data);
             });
             return deffered.promise;
@@ -69,7 +86,7 @@ PCIE.factory("utilisateurFactory", function(RestService, $q) {
 
         rechercherOffresNonPostulees: function (idUtilisateur) {
             var deffered = $q.defer();
-            rest.all("offre/nonPostulees").get(idUtilisateur).then(function (data) {
+            rest.all("api/utilisateur/offre/nonPostulees").get(idUtilisateur).then(function (data) {
                 deffered.resolve(data.plain());
             });
             return deffered.promise;
@@ -77,7 +94,7 @@ PCIE.factory("utilisateurFactory", function(RestService, $q) {
 
         enregistrerCandidatureSpontanee: function (utilisateur) {
             var deffered = $q.defer();
-            rest.all("candidatureSpontanee").post(utilisateur).then(function () {
+            rest.all("api/utilisateur/candidatureSpontanee").post(utilisateur).then(function () {
                 deffered.resolve();
             });
             return deffered.promise;

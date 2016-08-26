@@ -9,14 +9,6 @@ PCIE.service('sessionService', function() {
             user = newUser;
         },
 
-        getOffresUtilisateur: function() {
-            return OffresUtilisateur;
-        },
-
-        setOffresUtilisateur: function(data) {
-            OffresUtilisateur = data;
-        },
-
         isConnected: function() {
             return !!user;
         }
